@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36811.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VerduleriaWeb", "VerduleriaWeb\VerduleriaWeb.csproj", "{8F67ABD7-06E5-44E2-BC6A-6B2CCB011575}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{374F072E-16F6-4521-A42A-E084B0CB813B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{55EF6D2E-5FD4-494E-8C42-16C4B2686ED5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F67ABD7-06E5-44E2-BC6A-6B2CCB011575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F67ABD7-06E5-44E2-BC6A-6B2CCB011575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F67ABD7-06E5-44E2-BC6A-6B2CCB011575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F67ABD7-06E5-44E2-BC6A-6B2CCB011575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{374F072E-16F6-4521-A42A-E084B0CB813B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{374F072E-16F6-4521-A42A-E084B0CB813B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{374F072E-16F6-4521-A42A-E084B0CB813B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{374F072E-16F6-4521-A42A-E084B0CB813B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55EF6D2E-5FD4-494E-8C42-16C4B2686ED5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55EF6D2E-5FD4-494E-8C42-16C4B2686ED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55EF6D2E-5FD4-494E-8C42-16C4B2686ED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55EF6D2E-5FD4-494E-8C42-16C4B2686ED5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05A2F3F3-32DC-480E-A608-BA61DA179C57}
+	EndGlobalSection
+EndGlobal
