@@ -90,6 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\garone45-001-site1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\garone45-001-site1 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

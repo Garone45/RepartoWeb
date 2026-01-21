@@ -306,7 +306,6 @@
 </style>
 </head>
 <body>
-
     <form id="form1" runat="server">
 
         <div class="header">
@@ -320,44 +319,49 @@
                     style="width: 100%; padding: 12px; font-size: 1rem; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;" />
             </div>
 
-   <table class="table">
-    <thead>
-        <tr>
-            <th>Producto</th>
-            
-            <th class="solo-pc" style="width: 100px;">Precio</th>
-            
-            <th style="text-align:right; width: 80px;">Agregar</th>
-        </tr>
-    </thead>
-    <tbody>
-        <asp:Repeater ID="repProductos" runat="server">
-            <ItemTemplate>
-                <tr>
-                    <td class="col-info">
-                        <span class="badge"><%# Eval("Categoria.Nombre") %></span>
-                        <div class="nombre-prod"><%# Eval("Nombre") %></div>
-                        <div class="desc-prod"><%# Eval("Descripcion") %></div>
-                    </td>
+            <table class="table" id="tablaProductos">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th class="solo-pc" style="width: 100px;">Precio</th>
+                        <th style="text-align:right; width: 80px;">Agregar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <asp:Repeater ID="repProductos" runat="server">
+                        <ItemTemplate>
+                            <tr>
+                                <td class="col-info">
+                                    <div class="nombre-prod" style="font-size: 1.1rem; font-weight: bold; color: #333;">
+                                        <%# Eval("Nombre") %>
+                                    </div>
+                                    
+                                    <div class="desc-prod" style="color: #777; font-size: 0.9rem;">
+                                        <%# Eval("Descripcion") %>
+                                    </div>
+                                </td>
 
-                    <td class="col-precio solo-pc">
-                        $<%# Eval("Precio") %>
-                    </td>
+                                <td class="col-precio solo-pc">
+                                    $<%# Eval("Precio") %>
+                                </td>
 
-                    <td class="col-accion">
-                        <div class="accion-flex">
-                            <span class="precio-mobile solo-celu">$<%# Eval("Precio") %></span>
-                            
-                            <button type="button" class="btn-add" onclick="agregarAlCarrito('<%# Eval("Nombre") %>', <%# Eval("Precio") %>)">
-                                +
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </ItemTemplate>
-        </asp:Repeater>
-    </tbody>
-</table>
+                                <td class="col-accion">
+                                    <div class="accion-flex">
+                                        <span class="precio-mobile solo-celu" style="font-weight:bold; margin-right:10px;">
+                                            $<%# Eval("Precio") %>
+                                        </span>
+                                        
+                                        <button type="button" class="btn-add" 
+                                            onclick="agregarAlCarrito('<%# Eval("Nombre") %>', <%# Eval("Precio") %>)">
+                                            +
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </tbody>
+            </table>
         </div>
 
         <div style="height: 100px;"></div>
@@ -366,61 +370,72 @@
             <span>🛒 Ver Pedido</span>
             <span id="total-carrito" style="font-weight: bold; background: white; color: #25D366; padding: 2px 8px; border-radius: 10px; margin-left: 10px;">$0</span>
         </div>
-        <div id="modal-fondo" class="modal-overlay" style="display: none;">
 
+        <div id="modal-fondo" class="modal-overlay" style="display: none;">
             <div class="modal-caja">
                 <div class="modal-header">
                     <h2>📝 Revisá tu Pedido</h2>
                     <span class="cerrar-modal" onclick="cerrarResumen()">&times;</span>
                 </div>
-
-                <div id="lista-detalle" class="modal-body">
-                </div>
-
+                <div id="lista-detalle" class="modal-body"></div>
                 <div class="datos-cliente" style="padding: 15px; background: #f0f0f0; border-top: 1px solid #ddd;">
                     <h4 style="margin-top: 0; color: #2e7d32;">📍 Datos de Envío</h4>
-
                     <input type="text" id="txtClienteNombre" placeholder="Tu Nombre" class="input-datos" />
                     <input type="text" id="txtClienteDireccion" placeholder="Dirección de entrega" class="input-datos" />
-
-                    <textarea id="txtAclaraciones" placeholder="¿Alguna aclaración? (Ej: Timbre no anda, casa esquina...)" class="input-datos" rows="2"></textarea>
+                    <textarea id="txtAclaraciones" placeholder="¿Alguna aclaración?" class="input-datos" rows="2"></textarea>
                 </div>
-
                 <div class="modal-footer">
                     <div class="total-final">Total: <span id="modal-total">$0</span></div>
-
-                    <button type="button" class="btn-whatsapp-final" onclick="confirmarYEnviar()">
-                        ✅ Confirmar Pedido
-                    </button>
+                    <button type="button" class="btn-whatsapp-final" onclick="confirmarYEnviar()">✅ Confirmar Pedido</button>
                 </div>
             </div>
         </div>
-
     </form>
 
     <script>
-        // 1. CARGAMOS EL CARRITO
-        let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
-        actualizarBotonFlotante(); // Actualizamos al entrar por si quedó algo guardado
+        // ==========================================
+        // 1. BUSCADOR PARA TABLAS (Restaurado)
+        // ==========================================
+        function filtrarTabla() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("txtBuscador");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tablaProductos"); // Buscamos la tabla
+            tr = table.getElementsByTagName("tr");
 
-        // 2. AGREGAR PRODUCTO (Igual que antes)
+            for (i = 0; i < tr.length; i++) {
+                // Buscamos en la primera columna (td[0]) que tiene el nombre
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        // ==========================================
+        // 2. LÓGICA DEL CARRITO (Igual)
+        // ==========================================
+        let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+        actualizarBotonFlotante();
+
         function agregarAlCarrito(nombre, precio) {
             carrito.push({ nombre: nombre, precio: precio });
             guardarYActualizar();
-
-            // Efecto visual en el botón flotante
             const btn = document.getElementById('btn-flotante');
             btn.classList.add('vibrar');
             setTimeout(() => btn.classList.remove('vibrar'), 200);
         }
 
-        // 3. FUNCIÓN AUXILIAR PARA GUARDAR
         function guardarYActualizar() {
             localStorage.setItem('miCarrito', JSON.stringify(carrito));
             actualizarBotonFlotante();
         }
 
-        // 4. ACTUALIZAR EL BOTÓN VERDE FLOTANTE (Solo muestra el total)
         function actualizarBotonFlotante() {
             const btn = document.getElementById('btn-flotante');
             const lblTotal = document.getElementById('total-carrito');
@@ -434,31 +449,23 @@
             }
         }
 
-        // ======================================================
-        // NUEVAS FUNCIONES PARA EL MODAL (RESUMEN)
-        // ======================================================
-
-        // A. ABRIR EL MODAL (Se llama al hacer click en el botón flotante)
+        // ==========================================
+        // 3. FUNCIONES DEL MODAL
+        // ==========================================
         function abrirResumen() {
             const modal = document.getElementById('modal-fondo');
             const contenedorLista = document.getElementById('lista-detalle');
             const lblTotalModal = document.getElementById('modal-total');
 
-            // Limpiamos la lista anterior para no duplicar
             contenedorLista.innerHTML = "";
             let total = 0;
 
-            // Recorremos el carrito y creamos el HTML de cada renglón
             carrito.forEach((prod, indice) => {
                 total += prod.precio;
-
-                // Creamos el renglón HTML
                 const div = document.createElement('div');
                 div.className = 'item-resumen';
                 div.innerHTML = `
-                <div>
-                    <strong>${prod.nombre}</strong>
-                </div>
+                <div><strong>${prod.nombre}</strong></div>
                 <div style="display:flex; align-items:center;">
                     <span>$${prod.precio}</span>
                     <button class="btn-borrar" onclick="borrarItem(${indice})">🗑️</button>
@@ -467,34 +474,27 @@
                 contenedorLista.appendChild(div);
             });
 
-            // Actualizamos el total del modal
             lblTotalModal.innerText = "$" + total;
-
-            // Mostramos el modal
             modal.style.display = 'flex';
         }
 
-        // B. CERRAR EL MODAL
         function cerrarResumen() {
             document.getElementById('modal-fondo').style.display = 'none';
         }
 
-        // C. BORRAR UN ITEM ESPECÍFICO (Desde el tachito de basura)
         function borrarItem(indice) {
-            // Borra 1 elemento en la posición "indice"
             carrito.splice(indice, 1);
             guardarYActualizar();
-
-            // Si vació el carrito, cerramos el modal, sino recargamos la lista
             if (carrito.length === 0) {
                 cerrarResumen();
             } else {
-                abrirResumen(); // Volvemos a dibujar la lista actualizada
+                abrirResumen();
             }
         }
 
-        // D. FINALIZAR: ARMAR EL LINK DE WHATSAPP
-        // Carga automática de datos si ya compró antes
+        // ==========================================
+        // 4. WHATSAPP (Con el fix del número)
+        // ==========================================
         window.onload = function () {
             if (localStorage.getItem('clienteNombre')) {
                 document.getElementById('txtClienteNombre').value = localStorage.getItem('clienteNombre');
@@ -505,48 +505,35 @@
         };
 
         function confirmarYEnviar() {
-            // 1. CAPTURAMOS LOS DATOS DEL FORMULARIO
             const nombre = document.getElementById('txtClienteNombre').value.trim();
             const direccion = document.getElementById('txtClienteDireccion').value.trim();
             const aclaraciones = document.getElementById('txtAclaraciones').value.trim();
 
-            // 2. VALIDACIÓN BÁSICA (Que no manden vacío)
             if (nombre === "" || direccion === "") {
                 alert("⚠️ Por favor, completá tu nombre y dirección para el envío.");
-                return; // Cortamos acá, no se manda nada.
+                return;
             }
 
-            // 3. GUARDAMOS LOS DATOS PARA LA PRÓXIMA (UX PRO)
             localStorage.setItem('clienteNombre', nombre);
             localStorage.setItem('clienteDireccion', direccion);
 
-            // 4. ARMAMOS EL MENSAJE
-            const telefonoNegocio = "5491112345678"; // <--- TU NÚMERO
+            // TU NÚMERO (Ya corregido sin guiones ni +)
+            const telefonoNegocio = "5491138517333";
 
             let mensaje = `Hola! Soy *${nombre}*. Quiero hacer el siguiente pedido:%0A%0A`;
-
             carrito.forEach(prod => {
                 mensaje += `▪️ ${prod.nombre} ($${prod.precio})%0A`;
             });
 
             const total = carrito.reduce((suma, prod) => suma + prod.precio, 0);
             mensaje += `%0A*TOTAL A PAGAR: $${total}*`;
-
             mensaje += `%0A%0A📍 *Dirección de envío:*%0A${direccion}`;
 
             if (aclaraciones !== "") {
                 mensaje += `%0A📝 *Nota:* ${aclaraciones}`;
             }
 
-            // 5. ENVIAMOS
             window.open("https://wa.me/" + telefonoNegocio + "?text=" + mensaje, '_blank');
-
-            // Opcional: Cerrar modal y limpiar carrito
-            // carrito = [];
-            // localStorage.setItem('miCarrito', JSON.stringify(carrito));
-            // cerrarResumen();
-            // actualizarBotonFlotante();
         }
     </script>
-</body>
-</html>
+</body></html>

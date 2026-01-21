@@ -20,47 +20,66 @@
     <form id="form1" runat="server">
         <h1>Gestión de Productos</h1>
         
-        <div class="contenedor">
-            <div class="formulario">
-                <h3>Nuevo Producto</h3>
-                
-                <label>Nombre:</label>
-                <asp:TextBox ID="txtNombre" runat="server" Width="100%"></asp:TextBox>
-                
-                <label>Categoría:</label>
-                <asp:DropDownList ID="ddlCategoria" runat="server" Width="100%"></asp:DropDownList>
-                
-                <label>Precio (Entero):</label>
-                <asp:TextBox ID="txtPrecio" runat="server" TextMode="Number" Width="100%"></asp:TextBox>
-                
-                <label>Unidad (Ej: Kg, Bolsa):</label>
-                <asp:TextBox ID="txtUnidad" runat="server" Width="100%"></asp:TextBox>
-                
-                <label>Descripción (Opcional):</label>
-                <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" Width="100%"></asp:TextBox>
-                
-                <asp:Button ID="btnGuardar" runat="server" Text="Guardar Producto" CssClass="btn" OnClick="btnGuardar_Click" />
-                
-                <br /><br />
-                <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
-            </div>
+       <asp:HiddenField ID="hfIdProducto" runat="server" />
 
-            <div style="flex-grow: 1;">
-                <h3>Listado Actual</h3>
-                <asp:GridView ID="dgvProductos" runat="server" CssClass="grilla" AutoGenerateColumns="False">
-                    <Columns>
-                        <asp:BoundField DataField="Nombre" HeaderText="Producto" />
-                        <asp:BoundField DataField="Precio" HeaderText="Precio ($)" />
-                        <asp:BoundField DataField="Unidad" HeaderText="Unidad" />
-                        
-                        <%-- TRUCO: Para mostrar la propiedad de un objeto dentro de otro --%>
-                        <asp:BoundField DataField="Categoria.Nombre" HeaderText="Categoría" />
-                        
-                        <asp:CheckBoxField DataField="Activo" HeaderText="Activo" />
-                    </Columns>
-                </asp:GridView>
-            </div>
-        </div>
+<div class="formulario">
+    <h3>Gestión de Productos</h3>
+    
+    <label>Nombre:</label>
+    <asp:TextBox ID="txtNombre" runat="server" Width="100%"></asp:TextBox>
+    
+    <label>Categoría:</label>
+    <asp:DropDownList ID="ddlCategoria" runat="server" Width="100%"></asp:DropDownList>
+    
+    <label>Precio (Entero):</label>
+    <asp:TextBox ID="txtPrecio" runat="server" TextMode="Number" Width="100%"></asp:TextBox>
+    
+    <label>Unidad (Ej: Kg, Bolsa):</label>
+    <asp:TextBox ID="txtUnidad" runat="server" Width="100%"></asp:TextBox>
+    
+    <label>Descripción (Opcional):</label>
+    <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" Width="100%"></asp:TextBox>
+    
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <asp:Button ID="btnGuardar" runat="server" Text="Guardar Producto" CssClass="btn" OnClick="btnGuardar_Click" />
+        
+        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn" 
+            OnClick="btnLimpiar_Click" BackColor="#999" Visible="false" />
+    </div>
+
+    <br />
+    <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+</div>
+
+<div style="flex-grow: 1;">
+    <h3>Listado Actual</h3>
+    
+    <asp:GridView ID="dgvProductos" runat="server" CssClass="grilla" AutoGenerateColumns="False" 
+        DataKeyNames="Id" 
+        OnSelectedIndexChanged="dgvProductos_SelectedIndexChanged"
+        OnRowDeleting="dgvProductos_RowDeleting">
+        <Columns>
+            <asp:BoundField DataField="Nombre" HeaderText="Producto" />
+            <asp:BoundField DataField="Precio" HeaderText="Precio ($)" />
+            <asp:BoundField DataField="Unidad" HeaderText="Unidad" />
+            <asp:BoundField DataField="CategoriaNombre" HeaderText="Categoría" />
+            
+            <%-- BOTÓN EDITAR (Usa el comando Select) --%>
+            <asp:CommandField ShowSelectButton="True" SelectText="✏️ Editar" HeaderText="Modificar" ControlStyle-ForeColor="Blue" />
+
+            <%-- BOTÓN BORRAR (Con alerta de seguridad JS) --%>
+            <asp:TemplateField HeaderText="Acciones">
+                <ItemTemplate>
+                    <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Delete" 
+                        Text="🗑️ Borrar" ForeColor="Red" 
+                        OnClientClick="return confirm('¿Estás SEGURO de borrar este producto?');">
+                    </asp:LinkButton>
+                </ItemTemplate>
+            </asp:TemplateField>
+
+        </Columns>
+    </asp:GridView>
+</div>  
     </form>
 </body>
 </html>
