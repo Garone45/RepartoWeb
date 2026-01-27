@@ -385,9 +385,18 @@
                     <textarea id="txtAclaraciones" placeholder="¿Alguna aclaración?" class="input-datos" rows="2"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <div class="total-final">Total: <span id="modal-total">$0</span></div>
-                    <button type="button" class="btn-whatsapp-final" onclick="confirmarYEnviar()">✅ Confirmar Pedido</button>
-                </div>
+    <div class="total-final">Total: <span id="modal-total">$0</span></div>
+
+    <asp:HiddenField ID="hfCarritoJson" runat="server" />
+    <asp:HiddenField ID="hfNombre" runat="server" />
+    <asp:HiddenField ID="hfDireccion" runat="server" />
+    <asp:HiddenField ID="hfAclaraciones" runat="server" />
+
+    <asp:Button ID="btnFinalizar" runat="server" Text="✅ Confirmar y Pedir" 
+        CssClass="btn-whatsapp-final" 
+        OnClientClick="return prepararDatosParaServer();" 
+        OnClick="btnFinalizar_Click" />
+</div>
             </div>
         </div>
     </form>
@@ -504,36 +513,36 @@
             }
         };
 
-        function confirmarYEnviar() {
+        function prepararDatosParaServer() {
+            // 1. CAPTURAMOS LOS DATOS VISUALES
             const nombre = document.getElementById('txtClienteNombre').value.trim();
             const direccion = document.getElementById('txtClienteDireccion').value.trim();
             const aclaraciones = document.getElementById('txtAclaraciones').value.trim();
 
+            // 2. VALIDACIÓN
             if (nombre === "" || direccion === "") {
-                alert("⚠️ Por favor, completá tu nombre y dirección para el envío.");
-                return;
+                alert("⚠️ Por favor, completá tu nombre y dirección.");
+                return false; // CANCELA EL ENVÍO AL SERVIDOR
             }
 
+            if (carrito.length === 0) {
+                alert("⚠️ El carrito está vacío.");
+                return false;
+            }
+
+            // 3. GUARDAMOS EN LOCALSTORAGE (Para que no tenga que escribir de nuevo la próxima)
             localStorage.setItem('clienteNombre', nombre);
             localStorage.setItem('clienteDireccion', direccion);
 
-            // TU NÚMERO (Ya corregido sin guiones ni +)
-            const telefonoNegocio = "5491138517333";
+            // 4. LLENAMOS LOS CAMPOS OCULTOS (El puente a C#)
+            // Convertimos el array del carrito en TEXTO JSON
+            document.getElementById('<%= hfCarritoJson.ClientID %>').value = JSON.stringify(carrito);
+            document.getElementById('<%= hfNombre.ClientID %>').value = nombre;
+    document.getElementById('<%= hfDireccion.ClientID %>').value = direccion;
+            document.getElementById('<%= hfAclaraciones.ClientID %>').value = aclaraciones;
 
-            let mensaje = `Hola! Soy *${nombre}*. Quiero hacer el siguiente pedido:%0A%0A`;
-            carrito.forEach(prod => {
-                mensaje += `▪️ ${prod.nombre} ($${prod.precio})%0A`;
-            });
-
-            const total = carrito.reduce((suma, prod) => suma + prod.precio, 0);
-            mensaje += `%0A*TOTAL A PAGAR: $${total}*`;
-            mensaje += `%0A%0A📍 *Dirección de envío:*%0A${direccion}`;
-
-            if (aclaraciones !== "") {
-                mensaje += `%0A📝 *Nota:* ${aclaraciones}`;
-            }
-
-            window.open("https://wa.me/" + telefonoNegocio + "?text=" + mensaje, '_blank');
+            // 5. DEVUELVE TRUE: Permite que el botón dispare el evento en el servidor
+            return true;
         }
     </script>
 </body></html>

@@ -22,34 +22,6 @@
         
        <asp:HiddenField ID="hfIdProducto" runat="server" />
 
-<div class="formulario">
-    <h3>Gestión de Productos</h3>
-    
-    <label>Nombre:</label>
-    <asp:TextBox ID="txtNombre" runat="server" Width="100%"></asp:TextBox>
-    
-    <label>Categoría:</label>
-    <asp:DropDownList ID="ddlCategoria" runat="server" Width="100%"></asp:DropDownList>
-    
-    <label>Precio (Entero):</label>
-    <asp:TextBox ID="txtPrecio" runat="server" TextMode="Number" Width="100%"></asp:TextBox>
-    
-    <label>Unidad (Ej: Kg, Bolsa):</label>
-    <asp:TextBox ID="txtUnidad" runat="server" Width="100%"></asp:TextBox>
-    
-    <label>Descripción (Opcional):</label>
-    <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" Width="100%"></asp:TextBox>
-    
-    <div style="display: flex; gap: 10px; margin-top: 15px;">
-        <asp:Button ID="btnGuardar" runat="server" Text="Guardar Producto" CssClass="btn" OnClick="btnGuardar_Click" />
-        
-        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn" 
-            OnClick="btnLimpiar_Click" BackColor="#999" Visible="false" />
-    </div>
-
-    <br />
-    <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
-</div>
 
 <div style="flex-grow: 1;">
     <h3>Listado Actual</h3>
@@ -80,6 +52,34 @@
         </Columns>
     </asp:GridView>
 </div>  
+<div class="formulario">
+    <h3>Gestión de Productos</h3>
+    
+    <label>Nombre:</label>
+    <asp:TextBox ID="txtNombre" runat="server" Width="100%"></asp:TextBox>
+    
+    <label>Categoría:</label>
+    <asp:DropDownList ID="ddlCategoria" runat="server" Width="100%"></asp:DropDownList>
+    
+    <label>Precio (Entero):</label>
+    <asp:TextBox ID="txtPrecio" runat="server" TextMode="Number" Width="100%"></asp:TextBox>
+    
+    <label>Unidad (Ej: Kg, Bolsa):</label>
+    <asp:TextBox ID="txtUnidad" runat="server" Width="100%"></asp:TextBox>
+    
+    <label>Descripción (Opcional):</label>
+    <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" Width="100%"></asp:TextBox>
+    
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <asp:Button ID="btnGuardar" runat="server" Text="Guardar Producto" CssClass="btn" OnClick="btnGuardar_Click" />
+        
+        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn" 
+            OnClick="btnLimpiar_Click" BackColor="#999" Visible="false" />
+    </div>
+
+    <br />
+    <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+</div>
     </form>
 </body>
 </html>

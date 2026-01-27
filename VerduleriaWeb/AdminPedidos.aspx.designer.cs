@@ -11,7 +11,7 @@ namespace VerduleriaWeb
 {
 
 
-    public partial class Catalogo
+    public partial class AdminPedidos
     {
 
         /// <summary>
@@ -24,57 +24,48 @@ namespace VerduleriaWeb
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Control repProductos.
+        /// Control gridPedidos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater repProductos;
+        protected global::System.Web.UI.WebControls.GridView gridPedidos;
 
         /// <summary>
-        /// Control hfCarritoJson.
+        /// Control panelDetalle.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfCarritoJson;
+        protected global::System.Web.UI.WebControls.Panel panelDetalle;
 
         /// <summary>
-        /// Control hfNombre.
+        /// Control lblNroPedido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfNombre;
+        protected global::System.Web.UI.WebControls.Label lblNroPedido;
 
         /// <summary>
-        /// Control hfDireccion.
+        /// Control gridDetalles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfDireccion;
+        protected global::System.Web.UI.WebControls.GridView gridDetalles;
 
         /// <summary>
-        /// Control hfAclaraciones.
+        /// Control lblTotalDetalle.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfAclaraciones;
-
-        /// <summary>
-        /// Control btnFinalizar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFinalizar;
+        protected global::System.Web.UI.WebControls.Label lblTotalDetalle;
     }
 }
