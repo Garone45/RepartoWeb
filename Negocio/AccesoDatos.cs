@@ -72,4 +72,4 @@ namespace Negocio
             conexion.Close();
         }
     }
-}
+}   

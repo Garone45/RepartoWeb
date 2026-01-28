@@ -303,15 +303,96 @@
             font-size: 1.4rem !important;
         }
     }
+    /* --- AGREGÁ ESTO EN TU CSS (Dentro de <style>) --- */
+
+    /* Panel de usuario: En PC se ve en fila y centrado */
+    .panel-usuario {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px; /* Espacio entre el "Hola" y los botones */
+        margin: 15px auto;
+        padding: 10px;
+        max-width: 800px;
+    }
+
+    /* Estilo base para los botones del usuario */
+    .btn-usuario {
+        padding: 8px 15px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 0.9rem;
+        white-space: nowrap; /* Que no se parta el texto */
+    }
+
+    /* --- MODIFICÁ TU MEDIA QUERY EXISTENTE (max-width: 600px) --- */
+    @media (max-width: 600px) {
+        
+        /* ... dejá lo que ya tenías de la tabla ... */
+
+        /* NUEVO: Ajustes para el usuario en celular */
+        .panel-usuario {
+            flex-direction: column; /* Uno abajo del otro */
+            gap: 10px; /* Más espacio vertical */
+            background-color: #f9f9f9; /* Un fondito suave para separar */
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        /* Que los botones ocupen todo el ancho para tocar fácil */
+        .btn-usuario {
+            width: 100%;
+            display: block;
+            text-align: center;
+            padding: 12px; /* Más gorditos para el dedo */
+        }
+        
+        /* Achicar un poco el título principal */
+        .header h1 {
+            font-size: 1.3rem; 
+        }
+    }
 </style>
 </head>
 <body>
+
     <form id="form1" runat="server">
 
         <div class="header">
             <h1>🥦 Hacé tu Pedido</h1>
         </div>
+      <% if (Session["usuario"] != null) { %>
+        
+        <div class="panel-usuario">
+            <span style="color: #555; font-size: 1rem;">
+                Hola, <b><%: ((Dominio.Usuario)Session["usuario"]).Nombre %></b> 👋
+            </span>
+            
+            <div style="display: flex; gap: 10px; width: 100%; justify-content: center;">
+                
+                <a href="MisPedidos.aspx" class="btn-usuario" style="background-color: #e8f5e9; color: #2e7d32; border: 1px solid #2e7d32; flex-grow: 1;">
+                    👤 Mis Pedidos
+                </a>
 
+                <asp:Button ID="btnSalir" runat="server" Text="🚪 Salir" 
+                    OnClick="btnSalir_Click" 
+                    CssClass="btn-usuario"
+                    Style="background-color: #ff5252; color: white; border: none; flex-grow: 1; cursor: pointer;" />
+            </div>
+
+        </div>
+
+    <% } else { %>
+        
+        <div class="panel-usuario">
+            <span style="color: #666; margin-bottom: 5px;">¿Ya tenés cuenta?</span>
+            <a href="Login.aspx" class="btn-usuario" style="background-color: #2e7d32; color: white; width: 100%; text-align: center;">
+                🔐 Iniciar Sesión
+            </a>
+        </div>
+
+    <% } %>
         <div class="contenedor-lista">
             <div style="max-width: 800px; margin: 20px auto; padding: 0 10px;">
                 <input type="text" id="txtBuscador" onkeyup="filtrarTabla()"
