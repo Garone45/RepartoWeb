@@ -41,7 +41,7 @@ namespace VerduleriaWeb
                 // (Ojo: user.Id va a ser 0 acá, pero para comprar sirve igual por ahora)
                 Session.Add("usuario", user);
 
-                Response.Redirect("Catalogo.aspx", false);
+                Response.Redirect("Inicio.aspx", false);
             }
             catch (Exception ex)
             {

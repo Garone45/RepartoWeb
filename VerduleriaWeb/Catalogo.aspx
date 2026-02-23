@@ -7,9 +7,7 @@
     <title>Lista de Precios - Verdulería</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
  <style>
-    /* =========================================
-       1. ESTILOS GENERALES
-       ========================================= */
+    
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #fff;
@@ -17,18 +15,9 @@
         padding: 0;
     }
 
-    .header {
-        background-color: #2e7d32;
-        color: white;
-        padding: 15px;
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
+   
 
-    .header h1 {
-        margin: 0;
-        font-size: 1.5rem;
-    }
+   
 
     .contenedor-lista {
         max-width: 800px;
@@ -303,96 +292,118 @@
             font-size: 1.4rem !important;
         }
     }
-    /* --- AGREGÁ ESTO EN TU CSS (Dentro de <style>) --- */
+ 
 
     /* Panel de usuario: En PC se ve en fila y centrado */
-    .panel-usuario {
+   /* =========================================
+       CABECERA MINIMALISTA (NAVBAR)
+       ========================================= */
+    .navbar-moderna {
+        background-color: #2e7d32; /* Verde principal */
+        color: white;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        gap: 15px; /* Espacio entre el "Hola" y los botones */
-        margin: 15px auto;
-        padding: 10px;
-        max-width: 800px;
+        padding: 12px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Sombra muy suave */
     }
 
-    /* Estilo base para los botones del usuario */
-    .btn-usuario {
-        padding: 8px 15px;
-        border-radius: 20px;
+    .navbar-brand {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: white;
         text-decoration: none;
-        font-weight: bold;
-        font-size: 0.9rem;
-        white-space: nowrap; /* Que no se parta el texto */
+        letter-spacing: -0.5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
-    /* --- MODIFICÁ TU MEDIA QUERY EXISTENTE (max-width: 600px) --- */
+    .navbar-links {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* Botones minimalistas en la barra */
+    .nav-btn {
+        background: transparent;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 6px 14px;
+        border-radius: 50px; /* Bordes bien redondos tipo píldora */
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+
+    .nav-btn:hover {
+        background-color: white;
+        color: #2e7d32;
+    }
+
+    /* --- MODO CELULAR PARA LA NAVBAR --- */
     @media (max-width: 600px) {
-        
-        /* ... dejá lo que ya tenías de la tabla ... */
-
-        /* NUEVO: Ajustes para el usuario en celular */
-        .panel-usuario {
-            flex-direction: column; /* Uno abajo del otro */
-            gap: 10px; /* Más espacio vertical */
-            background-color: #f9f9f9; /* Un fondito suave para separar */
-            border-radius: 10px;
-            margin: 10px;
+        .navbar-moderna {
+            padding: 10px 15px;
         }
-
-        /* Que los botones ocupen todo el ancho para tocar fácil */
-        .btn-usuario {
-            width: 100%;
-            display: block;
-            text-align: center;
-            padding: 12px; /* Más gorditos para el dedo */
+        .navbar-brand {
+            font-size: 1.1rem;
         }
-        
-        /* Achicar un poco el título principal */
-        .header h1 {
-            font-size: 1.3rem; 
+        .navbar-links {
+            gap: 8px;
+        }
+        .nav-btn {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+        /* Ocultamos el "Hola Nombre" en celu para que no quede amontonado */
+        .texto-saludo {
+            display: none; 
         }
     }
+
+  
+
+    
 </style>
 </head>
 <body>
-
     <form id="form1" runat="server">
 
-        <div class="header">
-            <h1>🥦 Hacé tu Pedido</h1>
-        </div>
-      <% if (Session["usuario"] != null) { %>
-        
-        <div class="panel-usuario">
-            <span style="color: #555; font-size: 1rem;">
-                Hola, <b><%: ((Dominio.Usuario)Session["usuario"]).Nombre %></b> 👋
-            </span>
-            
-            <div style="display: flex; gap: 10px; width: 100%; justify-content: center;">
-                
-                <a href="MisPedidos.aspx" class="btn-usuario" style="background-color: #e8f5e9; color: #2e7d32; border: 1px solid #2e7d32; flex-grow: 1;">
-                    👤 Mis Pedidos
-                </a>
-
-                <asp:Button ID="btnSalir" runat="server" Text="🚪 Salir" 
-                    OnClick="btnSalir_Click" 
-                    CssClass="btn-usuario"
-                    Style="background-color: #ff5252; color: white; border: none; flex-grow: 1; cursor: pointer;" />
-            </div>
-
-        </div>
-
-    <% } else { %>
-        
-        <div class="panel-usuario">
-            <span style="color: #666; margin-bottom: 5px;">¿Ya tenés cuenta?</span>
-            <a href="Login.aspx" class="btn-usuario" style="background-color: #2e7d32; color: white; width: 100%; text-align: center;">
-                🔐 Iniciar Sesión
+        <nav class="navbar-moderna">
+            <a href="Catalogo.aspx" class="navbar-brand">
+                🥦 Salvador
             </a>
-        </div>
 
-    <% } %>
+            <div class="navbar-links">
+                <% if (Session["usuario"] != null) { %>
+                    
+                    <span class="texto-saludo" style="font-size: 0.9rem; opacity: 0.9;">
+                        Hola, <b><%: ((Dominio.Usuario)Session["usuario"]).Nombre %></b>
+                    </span>
+                    
+                    <a href="MisPedidos.aspx" class="nav-btn">👤 Pedidos</a>
+                    
+                    <asp:LinkButton ID="btnSalirNav" runat="server" CssClass="nav-btn" 
+                        Style="border-color: #ff8a80; color: #ff8a80;" 
+                        OnClick="btnSalir_Click">Salir</asp:LinkButton>
+                        
+                <% } else { %>
+                    
+                    <a href="Login.aspx" class="nav-btn" style="background-color: white; color: #2e7d32; border: none;">
+                        🔐 Ingresar
+                    </a>
+                    
+                <% } %>
+            </div>
+        </nav>
+    
         <div class="contenedor-lista">
             <div style="max-width: 800px; margin: 20px auto; padding: 0 10px;">
                 <input type="text" id="txtBuscador" onkeyup="filtrarTabla()"

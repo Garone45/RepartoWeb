@@ -45,7 +45,7 @@ namespace VerduleriaWeb
                     Session.Add("usuario", usuario);
 
                     // Nos vamos a comprar
-                    Response.Redirect("Catalogo.aspx", false);
+                    Response.Redirect("Inicio.aspx", false);
                 }
                 else
                 {
