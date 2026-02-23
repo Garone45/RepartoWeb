@@ -18,9 +18,7 @@ namespace VerduleriaWeb
             if (!IsPostBack)
             {
                 
-                ProductoNegocio negocio = new ProductoNegocio();
-
-                
+                ProductoNegocio negocio = new ProductoNegocio();              
                 repProductos.DataSource = negocio.Listar();
                 repProductos.DataBind();
             }
