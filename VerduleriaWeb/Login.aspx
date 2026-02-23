@@ -173,7 +173,7 @@
 
                 <div class="contenedor-registro">
                     <p style="margin: 0 0 10px 0; color: #999; font-size: 0.9rem;">¿Es tu primera vez?</p>
-                    <a href="Registro.aspx" class="btn-registro">Crear cuenta nueva</a>
+                    <a href="Registrar.aspx" class="btn-registro">Crear cuenta nueva</a>
                 </div>
 
             </div>
