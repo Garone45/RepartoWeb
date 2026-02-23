@@ -4,9 +4,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
     <title>Inicio - Verdulería Salvador</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <style>
         /* =========================================
            BOTÓN FLOTANTE DEL CARRITO
@@ -318,6 +319,55 @@
 
             .flecha-der {
                 right: 10px;
+            }
+            .hero-titulo { 
+                font-size: 2rem !important; 
+                margin-top: 20px;
+            }
+            .hero-subtitulo { 
+                font-size: 1rem !important; 
+                padding: 0 10px;
+            }
+
+            /* 2. Sección "Cómo Funciona": Una al lado de la otra (Iconos chicos) */
+            .seccion-pasos {
+                display: flex;
+                flex-direction: row; /* Los ponemos en fila */
+                justify-content: space-around;
+                padding: 20px 5px;
+            }
+            .paso {
+                min-width: auto;
+                flex: 1;
+                padding: 5px;
+            }
+            .icono-paso { font-size: 1.8rem; margin-bottom: 5px; }
+            .paso h4 { font-size: 0.8rem; }
+            .paso p { display: none; } /* Escondemos el texto largo en celu para ahorrar espacio */
+
+            /* 3. Tarjetas de Combos: Más compactas */
+            .tarjetas-container {
+                grid-template-columns: 1fr; /* Una tarjeta por fila, pero bien ancha */
+                padding: 10px;
+            }
+            .foto-combo { height: 150px; } /* Foto más petisa */
+            .precio-combo { font-size: 1.5rem; }
+
+            /* 4. Footer: Achicamos todo para que no ocupe 3 pantallas */
+            .footer-contenedor {
+                grid-template-columns: 1fr 1fr; /* Dos columnas chiquitas */
+                gap: 15px;
+                text-align: left;
+            }
+            .footer-columna:first-child { grid-column: span 2; } /* La info del local ocupa todo el ancho */
+            .footer-moderno { padding: 20px 10px; }
+            
+            /* 5. Botón Flotante: Más discreto */
+            .btn-flotante-carrito {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 18px;
+                font-size: 0.9rem;
             }
         }
 
