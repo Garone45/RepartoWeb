@@ -1,0 +1,482 @@
+﻿/* ============================================================
+   1. ESTILOS GENERALES (Reset y Bases)
+   ============================================================ */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+form { /* O el contenedor principal de tu aspx */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 100% del alto de la ventana */
+}
+
+/* El contenedor del checkout se estira para ocupar el espacio sobrante */
+.contenedor-checkout {
+    flex: 1;
+}
+
+/* El footer se queda pegado al fondo automáticamente */
+.footer-moderno {
+    margin-top: auto;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Clases de utilidad */
+.solo-pc {
+    /* Por defecto se ve, el media query de abajo lo oculta en móvil */
+    display: flex !important; 
+}
+
+/* ============================================================
+   2. DISEÑO WEB (Escritorio / Tablet grande)
+   ============================================================ */
+
+/* NAVBAR */
+.navbar-moderna {
+    background: rgba(46, 125, 50, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.3s;
+}
+
+.navbar-brand:hover { opacity: 0.8; }
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background: white;
+    color: #2e7d32;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* HERO BANNER & SLIDER */
+.hero-banner {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    position: relative;
+    transition: background-image 0.3s ease-in-out; /* Bajamos de 0.5s a 0.3s para que sea más ágil */
+    will-change: background-image; /* Le avisa al navegador que se prepare para el cambio */
+}
+
+.hero-titulo {
+    font-size: 3.2rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: all 0.2s ease-in-out;
+}
+
+.hero-subtitulo {
+    font-size: 1.2rem;
+    margin-bottom: 35px;
+    font-weight: 300;
+    opacity: 0.9;
+    transition: all 0.2s ease-in-out;
+}
+.btn-naranja {
+    display: inline-block; /* ¡ESTO ES CLAVE! */
+    background-color: #ff9800; /* El naranja de Salvador */
+    color: white !important;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.flecha-slider {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flecha-izq { left: 30px; }
+.flecha-der { right: 30px; }
+
+/* SECCIÓN PASOS (Cómo funciona) */
+/* SECCIÓN PASOS - VERSIÓN COMPACTA */
+.seccion-pasos {
+    display: flex;
+    justify-content: center; /* Los agrupamos al centro */
+    align-items: center;
+    padding: 20px 0; /* Bajamos de 60px a 20px para que sea una tirita */
+    background-color: #ffffff;
+    gap: 50px; /* Espacio entre los pasos */
+    border-bottom: 1px solid #eee;
+}
+
+.paso {
+    flex: 0 1 auto; /* Que no se estiren de más */
+    min-width: 150px;
+    padding: 5px;
+}
+
+.icono-paso {
+    font-size: 2rem; /* Achicamos el emoji de 3.5rem a 2rem */
+    margin-bottom: 5px;
+    filter: none; /* Quitamos la sombra para que sea más limpio */
+}
+
+.paso h4 {
+    color: #2e7d32;
+    font-size: 1rem; /* Título más chico */
+    margin: 0;
+    font-weight: 700;
+}
+
+.paso p {
+    color: #888;
+    font-size: 0.85rem; /* Texto de descripción más pequeño */
+    margin-top: 3px;
+    line-height: 1.2;
+}
+
+/* GRILLA DE COMBOS */
+.seccion-info { padding: 60px 20px; text-align: center; }
+.tarjetas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.tarjeta-combo {
+    background: #ffffff;
+    border-radius: 20px; /* Bordes bien redondeados para que parezca app */
+    overflow: hidden; /* Corta la imagen para que siga la curva del borde */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08); /* Sombrita suave para que flote */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    border: 1px solid #eee; /* Un borde muy fino para dar definición */
+    margin-bottom: 20px;
+}
+
+    .tarjeta-combo:hover {
+        transform: translateY(-5px); /* Se levanta un poquito al pasar el mouse */
+    }
+.contenido-combo {
+    padding: 20px;
+    text-align: left;
+}
+
+/* BOTÓN FLOTANTE PC */
+.btn-flotante-carrito {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #ff9800;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 5px 20px rgba(255, 152, 0, 0.4);
+    display: none; /* Se activa por JS */
+    z-index: 2000;
+    align-items: center;
+    gap: 10px;
+}
+.grilla-combos {
+    display: grid;
+    /* Esto crea las columnas automáticas: mínimo 300px cada una */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+.foto-combo {
+    width: 100%;
+    height: 200px;
+    background-size: cover; /* Esto hace que la foto llene el espacio */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat;
+    border-bottom: 1px solid #eee; /* Una línea sutil para separar de la descripción */
+}
+.btn-pedir-combo {
+    width: 100%;
+    background-color: #e8f5e9; /* Verde clarito */
+    color: #2e7d32; /* Tu verde oscuro */
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+}
+/* ============================================================
+   4. SECCIÓN: CHECKOUT (Finalizar Pedido)
+   ============================================================ */
+
+/* Contenedor principal: En PC se ve uno al lado del otro */
+.contenedor-checkout {
+    display: flex;
+    max-width: 1100px;
+    margin: 30px auto;
+    gap: 30px;
+    padding: 0 20px;
+    align-items: flex-start; /* Evita que las columnas se estiren feo */
+}
+
+/* Paneles blancos redondeados */
+.panel {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+}
+
+.col-datos {
+    flex: 2;
+}
+
+.col-resumen {
+    flex: 1.2;
+    position: sticky;
+    top: 100px;
+}
+
+.panel h2 {
+    color: #2e7d32;
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e8f5e9;
+    padding-bottom: 10px;
+}
+
+/* Ajuste de los inputs (Campos de texto) */
+.grupo-form {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+    .grupo-form label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #444;
+        font-size: 0.95rem;
+    }
+
+    .grupo-form input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1.5px solid #eee;
+        border-radius: 12px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        transition: all 0.3s;
+        box-sizing: border-box; /* Fundamental para que no se salga del borde */
+    }
+
+        .grupo-form input:focus {
+            border-color: #2e7d32;
+            outline: none;
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.1);
+        }
+
+/* Sección de Total */
+.total-pedido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding-top: 15px;
+    border-top: 2px dashed #eee;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #2e7d32;
+}
+
+/* Botón de WhatsApp */
+.btn-confirmar {
+    width: 100%;
+    background-color: #25d366; /* Color oficial WhatsApp */
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+}
+
+    .btn-confirmar:hover {
+        background-color: #128c7e;
+        transform: translateY(-2px);
+    }
+
+.mobile-nav { display: none; } /* Oculto en PC */
+
+
+
+/* ============================================================
+   3. DISEÑO MOBILE (Celulares y Tablets chicas)
+   ============================================================ */
+@media (max-width: 600px) {
+    .contenedor-checkout {
+        flex-direction: column-reverse; /* Primero el resumen, abajo los datos */
+        margin-top: 15px;
+        gap: 20px;
+    }
+
+    .col-resumen {
+        position: static;
+    }
+
+    .seccion-pasos {
+        padding: 10px 0;
+        gap: 10px;
+    }
+
+    .icono-paso {
+        font-size: 1.5rem; /* Super chico en celu */
+    }
+
+    .paso h4 {
+        font-size: 0.75rem;
+    }
+
+    /* Si querés que ocupe el mínimo espacio, escondé la descripción en celu */
+    .paso p {
+        display: none;
+    }
+    
+    .solo-pc { display: none !important; }
+
+    /* Achicamos la cabecera */
+    .navbar-moderna { padding: 10px 15px; }
+    .navbar-brand { font-size: 1.1rem; }
+
+    /* Hero Banner más compacto */
+    .hero-banner { height: 45vh; }
+    .hero-titulo { font-size: 1.8rem !important; }
+    .hero-subtitulo { font-size: 0.9rem !important; }
+
+    .flecha-slider { width: 35px; height: 35px; }
+    .flecha-izq { left: 10px; }
+    .flecha-der { right: 10px; }
+
+    /* Sección pasos: Iconos alineados horizontalmente */
+    .seccion-pasos {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px 10px;
+    }
+    .paso { min-width: auto; padding: 5px; }
+    .icono-paso { font-size: 2rem; }
+    .paso h4 { font-size: 0.8rem; }
+    .paso p { display: none; } /* Escondemos texto largo en móvil */
+
+    /* Grilla de combos: 1 sola columna */
+    .grilla-combos { grid-template-columns: 1fr; padding: 10px; }
+    .foto-combo { height: 160px; }
+
+    /* Footer adaptado */
+    .footer-contenedor { grid-template-columns: 1fr; text-align: center; }
+
+    /* BARRA NAVEGACIÓN INFERIOR (ESTILO APP) */
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        height: 65px;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        z-index: 9999;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 1px solid #eee;
+    }
+
+    .nav-item {
+        text-decoration: none;
+        color: #555;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.7rem;
+    }
+
+    .nav-icon { font-size: 1.3rem; margin-bottom: 2px; }
+
+    /* Espacio extra al final para que la barra no tape el contenido */
+    body { padding-bottom: 80px !important; }
+
+
+}

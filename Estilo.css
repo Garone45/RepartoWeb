@@ -1,0 +1,521 @@
+﻿
+
+
+
+/* ============================================================
+   1. ESTILOS GENERALES (Reset y Bases)
+   ============================================================ */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Clases de utilidad */
+.solo-pc {
+    /* Por defecto se ve, el media query de abajo lo oculta en móvil */
+    display: flex !important;
+}
+
+/* ============================================================
+   2. DISEÑO WEB (Escritorio / Tablet grande)
+   ============================================================ */
+
+/* NAVBAR */
+.navbar-moderna {
+    background: rgba(46, 125, 50, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.3s;
+}
+
+    .navbar-brand:hover {
+        opacity: 0.8;
+    }
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .nav-btn:hover {
+        background: white;
+        color: #2e7d32;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+/* HERO BANNER & SLIDER */
+.hero-banner {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    position: relative;
+    transition: background-image 0.5s ease-in-out;
+}
+
+.hero-titulo {
+    font-size: 3.2rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.hero-subtitulo {
+    font-size: 1.2rem;
+    margin-bottom: 35px;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+.flecha-slider {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flecha-izq {
+    left: 30px;
+}
+
+.flecha-der {
+    right: 30px;
+}
+
+/* SECCIÓN PASOS (Cómo funciona) */
+.seccion-pasos {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    text-align: center;
+    gap: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.paso {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px;
+}
+
+.icono-paso {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    filter: drop-shadow(0px 5px 10px rgba(46, 125, 50, 0.2));
+}
+
+/* GRILLA DE COMBOS */
+.seccion-info {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.grilla-combos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.tarjeta-combo {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+    .tarjeta-combo:hover {
+        transform: translateY(-10px);
+    }
+
+/* BOTÓN FLOTANTE PC */
+.btn-flotante-carrito {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #ff9800;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 5px 20px rgba(255, 152, 0, 0.4);
+    display: none; /* Se activa por JS */
+    z-index: 2000;
+    align-items: center;
+    gap: 10px;
+}
+
+.mobile-nav {
+    display: none;
+}
+/* Oculto en PC */
+
+/* ============================================================
+   3. DISEÑO MOBILE (Celulares y Tablets chicas)
+   ============================================================ */
+@media (max-width: 600px) {
+    .contenedor-checkout {
+        flex-direction: column-reverse;
+    }
+    /* En celu, el carrito queda arriba de los datos */
+    .col-datos, .col-resumen {
+        width: 100%;
+        position: static;
+        box-sizing: border-box;
+    }
+
+    .solo-pc {
+        display: none !important;
+    }
+
+    /* Achicamos la cabecera */
+    .navbar-moderna {
+        padding: 10px 15px;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    /* Hero Banner más compacto */
+    .hero-banner {
+        height: 45vh;
+    }
+
+    .hero-titulo {
+        font-size: 1.8rem !important;
+    }
+
+    .hero-subtitulo {
+        font-size: 0.9rem !important;
+    }
+
+    .flecha-slider {
+        width: 35px;
+        height: 35px;
+    }
+
+    .flecha-izq {
+        left: 10px;
+    }
+
+    .flecha-der {
+        right: 10px;
+    }
+
+    /* Sección pasos: Iconos alineados horizontalmente */
+    .seccion-pasos {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px 10px;
+    }
+
+    .paso {
+        min-width: auto;
+        padding: 5px;
+    }
+
+    .icono-paso {
+        font-size: 2rem;
+    }
+
+    .paso h4 {
+        font-size: 0.8rem;
+    }
+
+    .paso p {
+        display: none;
+    }
+    /* Escondemos texto largo en móvil */
+
+    /* Grilla de combos: 1 sola columna */
+    .grilla-combos {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .foto-combo {
+        height: 160px;
+    }
+
+    /* Footer adaptado */
+    .footer-contenedor {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    /* BARRA NAVEGACIÓN INFERIOR (ESTILO APP) */
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        height: 65px;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        z-index: 9999;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 1px solid #eee;
+    }
+
+    .nav-item {
+        text-decoration: none;
+        color: #555;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.7rem;
+    }
+
+    .nav-icon {
+        font-size: 1.3rem;
+        margin-bottom: 2px;
+    }
+
+    /* Espacio extra al final para que la barra no tape el contenido */
+    body {
+        padding-bottom: 80px !important;
+    }
+}
+
+
+
+
+/*ESTILO PARA CHECKOUT */
+
+
+.navbar-checkout {
+    background-color: #2e7d32;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between; /* Separa los elementos a los extremos */
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.navbar-checkout a {
+    color: white;
+    text-decoration: none;
+}
+
+.titulo-checkout {
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.btn-volver {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.2);
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+    .btn-volver:hover {
+        background: rgba(255,255,255,0.3);
+    }
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* Navbar Simple para no distraer */
+.navbar-checkout {
+    background-color: #2e7d32;
+    padding: 15px 20px;
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+    .navbar-checkout a {
+        color: white;
+        text-decoration: none;
+    }
+
+/* Contenedor Principal a 2 Columnas */
+.contenedor-checkout {
+    display: flex;
+    max-width: 1100px;
+    margin: 30px auto;
+    gap: 30px;
+    padding: 0 20px;
+    align-items: flex-start;
+}
+
+/* Paneles Blancos */
+.panel {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+    .panel h2 {
+        margin-top: 0;
+        color: #2e7d32;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        font-size: 1.4rem;
+    }
+
+/* COLUMNA IZQUIERDA: Datos del Cliente */
+.col-datos {
+    flex: 3;
+}
+
+.grupo-form {
+    margin-bottom: 15px;
+}
+
+    .grupo-form label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    .grupo-form input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
+        .grupo-form input:focus {
+            border-color: #2e7d32;
+            outline: none;
+            box-shadow: 0 0 5px rgba(46,125,50,0.3);
+        }
+
+/* COLUMNA DERECHA: Resumen del Pedido */
+.col-resumen {
+    flex: 2;
+    position: sticky;
+    top: 20px;
+}
+
+.item-carrito {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 0.95rem;
+}
+
+    .item-carrito:last-child {
+        border-bottom: none;
+    }
+
+.total-pedido {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #2e7d32;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+}
+
+/* Botón de Confirmar */
+.btn-confirmar {
+    width: 100%;
+    background-color: #25d366; /* Verde oficial de WhatsApp */
+    color: white;
+    border: none;
+    padding: 18px; /* Un poco más alto para que sea fácil tocar en el celu */
+    border-radius: 12px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 25px;
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); /* Sombrita verde */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+    .btn-confirmar:hover {
+        background-color: #128c7e;
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+    }
+
+

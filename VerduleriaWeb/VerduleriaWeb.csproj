@@ -71,6 +71,7 @@
     <Content Include="AdminProductos.aspx" />
     <Content Include="Catalogo.aspx" />
     <Content Include="Checkout.aspx" />
+    <Content Include="Estilo.css" />
     <Content Include="Inicio.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MisPedidos.aspx" />
