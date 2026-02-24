@@ -86,7 +86,36 @@
         }
 
         .footer-moderno {
-            padding: 15px 10px;
+            padding: 15px 10px; /* Reducimos el aire arriba y abajo */
+        }
+
+        .columna-links {
+            display: none !important;
+        }
+
+        .footer-contenedor {
+            text-align: center;
+        }
+
+        .footer-columna h3 {
+            font-size: 0.9rem; /* Títulos más discretos */
+            margin-bottom: 8px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+            .footer-links li {
+                margin-bottom: 0; /* Quitamos el margen inferior */
+            }
+
+        /* Iconos sociales más juntos */
+        .footer-social {
+            justify-content: center;
         }
     }
 </style>
@@ -98,8 +127,8 @@
             <p>Llevamos frescura y calidad directo de la huerta a tu mesa.</p>
         </div>
 
-        <div class="footer-columna">
-            <h3>Enlaces</h3>
+        <div class="footer-columna columna-links">
+            <h3>Enlaces Rápidos</h3>
             <ul class="footer-links">
                 <li><a href="Inicio.aspx">🏠 Inicio</a></li>
                 <li><a href="Catalogo.aspx">🍎 Catálogo</a></li>
