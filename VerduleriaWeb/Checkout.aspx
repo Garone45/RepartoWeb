@@ -10,6 +10,7 @@
 
 </head>
 <body>
+
     <form id="form1" runat="server">
         
    <nav class="navbar-moderna">
@@ -99,40 +100,27 @@
 
         // Función vacía por ahora, acá armaremos el mensaje de WhatsApp
         function enviarPedido() {
-            // 1. Agarramos los datos del formulario
-            const nombre = document.getElementById('txtNombre').value;
-            const direccion = document.getElementById('txtDireccion').value;
-            const telefono = document.getElementById('txtTelefono').value;
+            const nombre = document.getElementById("txtNombre").value;
+            const direccion = document.getElementById("txtDireccion").value;
+            const telefono = document.getElementById("txtTelefono").value;
+            const totalTexto = document.getElementById("lblTotalCheckout").innerText.replace('$', '');
 
             if (!nombre || !direccion || !telefono) {
-                alert("Por favor, completá todos tus datos para la entrega.");
+                alert("Por favor, completá los datos para la entrega en Victoria. 🚚");
                 return;
             }
 
-            // 2. Traemos el carrito de la memoria
-            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
-            let total = 0;
-
-            // 3. Armamos el mensaje de texto
-            let mensaje = `¡Hola Salvador! 🥦%0A`;
-            mensaje += `Mi nombre es *${nombre}*.%0A`;
-            mensaje += `Quisiera hacer el siguiente pedido:%0A%0A`;
-
-            carrito.forEach(item => {
-                mensaje += `- ${item.nombre}: $${item.precio}%0A`;
-                total += item.precio;
+            // Llamada silenciosa al servidor para guardar el pedido antes de ir a WhatsApp
+            PageMethods.GuardarPedido(nombre, direccion, telefono, parseFloat(totalTexto), function (resultado) {
+                if (resultado) {
+                    // Si se guardó en SQL, procedemos al WhatsApp
+                    const mensaje = `Hola Salvador! 🥦 Pedido de: ${nombre}\nDirección: ${direccion}\nTotal: $${totalTexto}`;
+                    const url = `https://wa.me/5491138517333?text=${encodeURIComponent(mensaje)}`;
+                    window.open(url, '_blank');
+                } else {
+                    alert("Hubo un error al procesar el pedido, pero podés contactarnos por WhatsApp igual.");
+                }
             });
-
-            mensaje += `%0A*Total: $${total}*%0A%0A`;
-            mensaje += `📍 *Dirección:* ${direccion}%0A`;
-            mensaje += `📱 *Teléfono:* ${telefono}`;
-
-            // 4. Tu número de WhatsApp (poné el tuyo acá)
-            const numeroWhatsApp = "5491138517333"; // Reemplazalo por el de Salvador
-
-            // 5. ¡Abrimos WhatsApp!
-            const url = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
-            window.open(url, '_blank');
         }
     </script>
 </body>

@@ -13,6 +13,9 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div class="nav-auth-buttons solo-celu">
+            <a href="Login.aspx" class="btn-nav-mobile">Ingresar</a>
+        </div>
 
         <nav class="navbar-moderna">
             <a href="Inicio.aspx" class="navbar-brand">🥦 Salvador</a>
@@ -23,7 +26,7 @@
                 <% }
                     else
                     { %>
-               <a href="Login.aspx" class="nav-btn solo-pc">Ingresar</a>
+                <a href="Login.aspx" class="nav-btn solo-pc">Ingresar</a>
                 <% } %>
             </div>
         </nav>
@@ -133,88 +136,88 @@
         <span class="badge-cantidad" id="lblCantidadCarrito">0</span>
     </a>
 
-  <script>
-      // --- 1. CONFIGURACIÓN DEL SLIDER (Fotos más livianas con &w=1200) ---
-      const slides = [
-          {
-              foto: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=70&w=1200&auto=format&fit=crop",
-              titulo: "PEDÍ TU COMBO SALVADOR",
-              subtitulo: "Directo de la huerta a tu mesa, sin escalas."
-          },
-          {
-              foto: "https://images.unsplash.com/photo-1610348725531-843dff563e2c?q=70&w=1200&auto=format&fit=crop",
-              titulo: "FRUTAS DE ESTACIÓN",
-              subtitulo: "Llená tus días de sabor, energía y vitaminas."
-          },
-          {
-              foto: "https://images.unsplash.com/photo-1573246123716-6b1782bfc499?q=70&w=1200&auto=format&fit=crop",
-              titulo: "CALIDAD PREMIUM",
-              subtitulo: "Elegimos la mejor mercadería para tu familia."
-          }
-      ];
+    <script>
+        // --- 1. CONFIGURACIÓN DEL SLIDER (Fotos más livianas con &w=1200) ---
+        const slides = [
+            {
+                foto: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=70&w=1200&auto=format&fit=crop",
+                titulo: "PEDÍ TU COMBO SALVADOR",
+                subtitulo: "Directo de la huerta a tu mesa, sin escalas."
+            },
+            {
+                foto: "https://images.unsplash.com/photo-1610348725531-843dff563e2c?q=70&w=1200&auto=format&fit=crop",
+                titulo: "FRUTAS DE ESTACIÓN",
+                subtitulo: "Llená tus días de sabor, energía y vitaminas."
+            },
+            {
+                foto: "https://images.unsplash.com/photo-1573246123716-6b1782bfc499?q=70&w=1200&auto=format&fit=crop",
+                titulo: "CALIDAD PREMIUM",
+                subtitulo: "Elegimos la mejor mercadería para tu familia."
+            }
+        ];
 
-      let indiceActual = 0;
-      let timerSlider;
+        let indiceActual = 0;
+        let timerSlider;
 
-      function renderizarSlide() {
-          const banner = document.getElementById("bannerPrincipal");
-          const titulo = document.getElementById("textoTitulo");
-          const subtitulo = document.getElementById("textoSubtitulo");
+        function renderizarSlide() {
+            const banner = document.getElementById("bannerPrincipal");
+            const titulo = document.getElementById("textoTitulo");
+            const subtitulo = document.getElementById("textoSubtitulo");
 
-          // 1. Cambio de fondo inmediato
-          banner.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${slides[indiceActual].foto}')`;
+            // 1. Cambio de fondo inmediato
+            banner.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${slides[indiceActual].foto}')`;
 
-          // 2. Cambio de texto inmediato (sin setTimeout)
-          // Usamos una transición suave de CSS en lugar de JS
-          titulo.innerText = slides[indiceActual].titulo;
-          subtitulo.innerText = slides[indiceActual].subtitulo;
-      }
+            // 2. Cambio de texto inmediato (sin setTimeout)
+            // Usamos una transición suave de CSS en lugar de JS
+            titulo.innerText = slides[indiceActual].titulo;
+            subtitulo.innerText = slides[indiceActual].subtitulo;
+        }
 
-      function cambiarFoto(direccion) {
-          indiceActual = (indiceActual + direccion + slides.length) % slides.length;
-          renderizarSlide();
-      }
+        function cambiarFoto(direccion) {
+            indiceActual = (indiceActual + direccion + slides.length) % slides.length;
+            renderizarSlide();
+        }
 
-      function cambiarFotoManual(direccion) {
-          clearInterval(timerSlider);
-          cambiarFoto(direccion);
-          timerSlider = setInterval(() => cambiarFoto(1), 5000);
-      }
+        function cambiarFotoManual(direccion) {
+            clearInterval(timerSlider);
+            cambiarFoto(direccion);
+            timerSlider = setInterval(() => cambiarFoto(1), 5000);
+        }
 
-      // --- 2. FUNCIONES DEL CARRITO ---
-      function actualizarBotonFlotante() {
-          let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
-          let botonFlotante = document.getElementById("btnCarritoFlotante");
-          let labelCantidad = document.getElementById("lblCantidadCarrito");
-          let badgeMobile = document.getElementById("badgeMobile");
+        // --- 2. FUNCIONES DEL CARRITO ---
+        function actualizarBotonFlotante() {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            let botonFlotante = document.getElementById("btnCarritoFlotante");
+            let labelCantidad = document.getElementById("lblCantidadCarrito");
+            let badgeMobile = document.getElementById("badgeMobile");
 
-          if (badgeMobile) badgeMobile.innerText = carrito.length;
+            if (badgeMobile) badgeMobile.innerText = carrito.length;
 
-          if (carrito.length > 0) {
-              if (botonFlotante) botonFlotante.style.display = "flex";
-              if (labelCantidad) labelCantidad.innerText = carrito.length;
-          } else {
-              if (botonFlotante) botonFlotante.style.display = "none";
-          }
-      }
+            if (carrito.length > 0) {
+                if (botonFlotante) botonFlotante.style.display = "flex";
+                if (labelCantidad) labelCantidad.innerText = carrito.length;
+            } else {
+                if (botonFlotante) botonFlotante.style.display = "none";
+            }
+        }
 
-      function agregarCombo(nombreCombo, precioCombo) {
-          let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
-          carrito.push({ nombre: nombreCombo, precio: precioCombo });
-          localStorage.setItem('miCarrito', JSON.stringify(carrito));
+        function agregarCombo(nombreCombo, precioCombo) {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            carrito.push({ nombre: nombreCombo, precio: precioCombo });
+            localStorage.setItem('miCarrito', JSON.stringify(carrito));
 
-          // Animación sutil en lugar de alert pesado
-          actualizarBotonFlotante();
-          console.log("Agregado: " + nombreCombo);
-      }
+            // Animación sutil en lugar de alert pesado
+            actualizarBotonFlotante();
+            console.log("Agregado: " + nombreCombo);
+        }
 
-      // --- ONLOAD ÚNICO ---
-      window.onload = function () {
-          renderizarSlide(); // Para que cargue el primer slide bien
-          timerSlider = setInterval(() => cambiarFoto(1), 5000);
-          actualizarBotonFlotante();
-      };
-  </script>
+        // --- ONLOAD ÚNICO ---
+        window.onload = function () {
+            renderizarSlide(); // Para que cargue el primer slide bien
+            timerSlider = setInterval(() => cambiarFoto(1), 5000);
+            actualizarBotonFlotante();
+        };
+    </script>
 
 
 </body>
