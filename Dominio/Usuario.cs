@@ -11,12 +11,21 @@ namespace Dominio
         public string Apellido { get; set; }
         public string Telefono { get; set; }
         public string Direccion { get; set; }
-        public int TipoUsuario { get; set; } // 1 = Admin, 2 = Cliente
+
+        public int TipoUsuario { get; set; }
+
+        public TipoUsuario Tipo { get; set; }
+
 
         // Propiedad extra "solo lectura" para preguntar fácil si es admin
         public bool EsAdmin
         {
             get { return TipoUsuario == 1; }
         }
+    }
+    public enum TipoUsuario
+    {
+        Admin = 1,
+        Cliente = 2
     }
 }

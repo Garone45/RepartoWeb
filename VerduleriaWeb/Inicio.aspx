@@ -8,28 +8,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
     <title>Inicio - Verdulería Salvador</title>
-    <link href="<%= ResolveUrl("~/Estilo.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%= ResolveUrl("~/Estilo.css?v=2") %>" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="nav-auth-buttons solo-celu">
-            <a href="Login.aspx" class="btn-nav-mobile">Ingresar</a>
-        </div>
+        
+       <nav class="navbar-moderna">
+    <a href="Inicio.aspx" class="navbar-brand">Salvador 🥦</a>
+    
+    <div class="navbar-links">
+        <a href="Catalogo.aspx" class="nav-btn">Comprar</a>
+    </div>
 
-        <nav class="navbar-moderna">
-            <a href="Inicio.aspx" class="navbar-brand">🥦 Salvador</a>
-            <div class="navbar-links">
-                <% if (Session["usuario"] != null)
-                    { %>
-                <a href="MisPedidos.aspx" class="nav-btn">👤 Pedidos</a>
-                <% }
-                    else
-                    { %>
-                <a href="Login.aspx" class="nav-btn solo-pc">Ingresar</a>
-                <% } %>
-            </div>
-        </nav>
+    <div class="nav-auth-buttons">
+        <% if (Session["usuario"] == null) { %>
+            <a href="Login.aspx" class="btn-nav-mobile">Ingresar</a>
+        <% } else { %>
+            <a href="MiPerfil.aspx" class="btn-nav-mobile">Mi Cuenta</a>
+        <% } %>
+    </div>
+</nav>
 
         <div class="hero-banner" id="bannerPrincipal">
 
@@ -45,7 +44,7 @@
                 </svg>
             </button>
 
-            <h1 class="hero-titulo" id="textoTitulo">PEDÍ TU COMBO SALVADOR</h1>
+            <h1 class="hero-titulo" id="textoTitulo">PEDÍ TU COMBO SEMANAL</h1>
             <p class="hero-subtitulo" id="textoSubtitulo">Directo de la huerta a tu mesa, sin escalas.</p>
             <a href="#productos" class="btn-naranja">Ver Productos</a>
         </div>

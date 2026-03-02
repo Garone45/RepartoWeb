@@ -21,6 +21,11 @@ namespace Negocio
                 {
                     // ¡Encontramos al usuario! Llenamos sus datos
                     usuario.Id = (int)datos.Lector["Id"];
+
+                    if (!(datos.Lector["TipoUsuario"] is DBNull))
+                        usuario.TipoUsuario = (int)datos.Lector["TipoUsuario"];
+                    else
+                        usuario.TipoUsuario = 2;
                     usuario.TipoUsuario = (int)datos.Lector["TipoUsuario"];
 
                     // Validamos nulos por si alguno no cargó el nombre

@@ -23,6 +23,16 @@ namespace VerduleriaWeb
                 CargarCategorias();
                 CargarGrilla();
             }
+            // Recuperamos el usuario de la sesión
+            Dominio.Usuario user = (Dominio.Usuario)Session["usuario"];
+
+            // Si no hay sesión o el usuario NO es admin, lo sacamos de la página
+            if (user == null || !user.EsAdmin)
+            {
+                Session.Add("error", "No tenés permisos para acceder a esta sección.");
+                Response.Redirect("Login.aspx", false);
+            }
+
         }
 
        

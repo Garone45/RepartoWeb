@@ -7,11 +7,12 @@ using System.Web.UI.WebControls;
 
 namespace VerduleriaWeb
 {
-    public partial class WebUserControl1 : System.Web.UI.UserControl
+    // El "partial" y el ": System.Web.UI.UserControl" son obligatorios
+    public partial class Footer : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // Tu código aquí...
         }
     }
 }

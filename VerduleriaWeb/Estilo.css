@@ -7,6 +7,10 @@ html, body {
     margin: 0;
 }
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 form { /* O el contenedor principal de tu aspx */
     display: flex;
     flex-direction: column;
@@ -22,6 +26,7 @@ form { /* O el contenedor principal de tu aspx */
 .footer-moderno {
     margin-top: auto;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -32,7 +37,7 @@ body {
 /* Clases de utilidad */
 .solo-pc {
     /* Por defecto se ve, el media query de abajo lo oculta en móvil */
-    display: flex !important; 
+    display: flex !important;
 }
 
 /* ============================================================
@@ -67,7 +72,9 @@ body {
     transition: opacity 0.3s;
 }
 
-.navbar-brand:hover { opacity: 0.8; }
+    .navbar-brand:hover {
+        opacity: 0.8;
+    }
 
 .navbar-links {
     display: flex;
@@ -87,12 +94,12 @@ body {
     transition: all 0.3s ease;
 }
 
-.nav-btn:hover {
-    background: white;
-    color: #2e7d32;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
+    .nav-btn:hover {
+        background: white;
+        color: #2e7d32;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
 
 /* HERO BANNER & SLIDER */
 .hero-banner {
@@ -127,6 +134,7 @@ body {
     opacity: 0.9;
     transition: all 0.2s ease-in-out;
 }
+
 .btn-naranja {
     display: inline-block; /* ¡ESTO ES CLAVE! */
     background-color: #ff9800; /* El naranja de Salvador */
@@ -158,8 +166,13 @@ body {
     align-items: center;
 }
 
-.flecha-izq { left: 30px; }
-.flecha-der { right: 30px; }
+.flecha-izq {
+    left: 30px;
+}
+
+.flecha-der {
+    right: 30px;
+}
 
 /* SECCIÓN PASOS (Cómo funciona) */
 /* SECCIÓN PASOS - VERSIÓN COMPACTA */
@@ -200,7 +213,11 @@ body {
 }
 
 /* GRILLA DE COMBOS */
-.seccion-info { padding: 60px 20px; text-align: center; }
+.seccion-info {
+    padding: 60px 20px;
+    text-align: center;
+}
+
 .tarjetas-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -225,6 +242,7 @@ body {
     .tarjeta-combo:hover {
         transform: translateY(-5px); /* Se levanta un poquito al pasar el mouse */
     }
+
 .contenido-combo {
     padding: 20px;
     text-align: left;
@@ -247,6 +265,7 @@ body {
     align-items: center;
     gap: 10px;
 }
+
 .grilla-combos {
     display: grid;
     /* Esto crea las columnas automáticas: mínimo 300px cada una */
@@ -255,6 +274,7 @@ body {
     max-width: 1100px;
     margin: 40px auto;
 }
+
 .foto-combo {
     width: 100%;
     height: 200px;
@@ -263,6 +283,7 @@ body {
     background-repeat: no-repeat;
     border-bottom: 1px solid #eee; /* Una línea sutil para separar de la descripción */
 }
+
 .btn-pedir-combo {
     width: 100%;
     background-color: #e8f5e9; /* Verde clarito */
@@ -380,59 +401,73 @@ body {
         transform: translateY(-2px);
     }
 
-.mobile-nav { display: none; } /* Oculto en PC */
+.mobile-nav {
+    display: none;
+}
+/* Oculto en PC */
 
+@media (max-width: 768px) {
 
+    .navbar-moderna {
+        background-color: #ffffff !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+        /* Con box-sizing: border-box global, esto ya no rompe la pantalla */
+        padding: 0 15px !important;
+        width: 100% !important;
+        margin: 0 !important; /* Por las dudas que algo lo esté empujando */
 
-/* ============================================================
-   3. DISEÑO MOBILE (Celulares y Tablets chicas)
-   ============================================================ */
-/* =========================================
-   SOLO PARA CELULAR (Mobile Only)
-   ========================================= */
-@media (max-width: 600px) {
-
-    /* 1. Navbar Blanca con línea fina */
-    .navbar, .navbar-moderna {
-        background-color: #ffffff !important; /* Fondo blanco para el celu */
-        border-bottom: 1px solid #e0e0e0 !important; /* Línea divisoria sutil */
-        padding: 10px 15px;
         display: flex !important;
-        justify-content: space-between;
-        align-items: center;
-        height: auto;
+        justify-content: space-between !important;
+        align-items: center !important;
+        height: 60px !important; /* Un toque más alta para que se lea mejor */
+
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
     }
 
-    /* 2. Título SALVADOR (Blanco con borde verde) */
-    /* Usamos varias clases por si en tu HTML cambia el nombre */
-    .navbar-brand span, .logo-texto, .navbar-brand {
-        font-family: 'Poppins', sans-serif;
-        font-weight: 900 !important;
-        font-size: 1.4rem !important;
-        color: #ffffff !important; /* Centro de la letra blanco */
-        display: inline-block !important;
-        text-transform: uppercase;
-        /* El borde verde que le da el cuerpo a la letra */
-        text-shadow: -1.5px -1.5px 0 #2e7d32, 1.5px -1.5px 0 #2e7d32, -1.5px 1.5px 0 #2e7d32, 1.5px 1.5px 0 #2e7d32;
-        letter-spacing: 1px;
+    .navbar-brand {
+        font-family: 'Poppins', sans-serif !important;
+        font-weight: 800 !important;
+        font-size: 1.1rem !important;
+        color: #1b4332 !important;
+        text-decoration: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        text-shadow: none !important;
     }
 
-    /* 3. Botones de Registro (Aparecen solo en celu) */
+    .navbar-links {
+        display: none !important;
+    }
+
     .nav-auth-buttons {
         display: flex !important;
-        gap: 8px;
+        align-items: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    body {
+        padding-top: 60px !important;
+        padding-bottom: 80px !important;
     }
 
     .btn-nav-mobile {
-        border: 1.5px solid #2e7d32;
-        color: #2e7d32;
-        padding: 5px 12px;
-        border-radius: 8px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-decoration: none;
-        background: transparent;
+        color: #2e7d32 !important;
+        border: 1.5px solid #2e7d32 !important;
+        padding: 5px 12px !important;
+        border-radius: 20px !important;
+        font-size: 0.75rem !important;
+        font-weight: 700 !important;
+        text-decoration: none !important;
+        background: transparent !important;
+        text-transform: uppercase !important;
+        white-space: nowrap !important; /* Obliga a que no se parta la palabra */
     }
+
 
     /* 4. Ajustes del Checkout en Celu */
     .contenedor-checkout {
@@ -454,11 +489,41 @@ body {
 
     /* 5. Hero y Slider compactos */
     .hero-banner {
-        height: 40vh !important;
+        height: 45vh !important; /* Un poco más de alto para que respire */
+        min-height: 260px !important; /* Altura mínima de seguridad */
+        padding: 0 45px !important; /* CLAVE: Empuja el texto hacia el centro, lejos de las flechas */
     }
 
     .hero-titulo {
-        font-size: 1.6rem !important;
+        font-size: 1.6rem !important; /* Tamaño amigable para celu */
+        line-height: 1.2 !important; /* Separa los renglones para que se lea bien la frase */
+        margin-bottom: 12px !important;
+    }
+
+    .hero-subtitulo {
+        font-size: 0.95rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 25px !important;
+    }
+
+    .flecha-slider {
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 0.9rem !important; /* Si usás un ícono o letra, también se achica */
+    }
+
+    .flecha-izq {
+        left: 8px !important; /* Bien pegadita al borde izquierdo */
+    }
+
+    .flecha-der {
+        right: 8px !important; /* Bien pegadita al borde derecho */
+    }
+
+    /* Ajuste para el botón naranja de la portada */
+    .btn-naranja {
+        padding: 10px 20px !important;
+        font-size: 0.9rem !important;
     }
 
     /* 6. Barra inferior estilo App */
@@ -478,8 +543,192 @@ body {
     body {
         padding-bottom: 80px !important;
     }
-    /* Espacio para que la barra no tape nada */
+
+    .seccion-pasos {
+        padding: 8px 5px !important; /* Casi nada de aire arriba y abajo */
+        display: flex !important;
+        flex-direction: row !important; /* Mantiene todo en una línea horizontal */
+        justify-content: space-evenly !important; /* Reparte el espacio perfecto */
+        gap: 5px !important;
+        background-color: #ffffff;
+        border-bottom: 1px solid #eee;
+        margin: 0 !important; /* Nos aseguramos de que no haya márgenes ocultos */
+    }
+
+    .paso {
+        flex: 1; /* Los 3 pasos ocupan exactamente el mismo ancho */
+        min-width: auto !important; /* Matamos los 150px mínimos que tenía en PC */
+        padding: 0 !important;
+        text-align: center;
+    }
+
+    .icono-paso {
+        font-size: 1.5rem !important; /* Achicamos los emojis/iconos */
+        margin-bottom: 2px !important;
+        display: block !important;
+    }
+
+    .paso h4 {
+        font-size: 0.7rem !important; /* Título chiquito pero súper legible */
+        margin: 0 !important;
+        color: #2e7d32 !important;
+        line-height: 1.1 !important;
+        /* Si la palabra es muy larga, la dejamos caer al segundo renglón ordenadamente */
+        white-space: normal !important;
+    }
+
+    .paso p {
+        display: none !important; /* Escondemos el texto largo definitivamente en celu */
+    }
+
+    .tarjetas-container, .grilla-combos {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; /* LA MAGIA: Fuerza 2 columnas exactas */
+        gap: 10px !important; /* Reducimos la separación para ganar espacio */
+        padding: 0 10px !important; /* Márgenes laterales finitos */
+        margin: 20px auto !important;
+    }
+
+    .tarjeta-combo {
+        margin-bottom: 0 !important; /* El grid ya se encarga de separarlas */
+        border-radius: 12px !important; /* Curva un poco más suave para tarjetas chicas */
+    }
+
+    .foto-combo {
+        height: 110px !important; /* Achicamos la altura de la foto para equilibrar */
+    }
+
+    .contenido-combo {
+        padding: 10px !important; /* Menos espacio vacío adentro de la tarjeta */
+    }
+
+        /* Ajustamos los textos para que no se desborden */
+        .contenido-combo h3 {
+            font-size: 0.9rem !important;
+            margin-top: 0 !important;
+            margin-bottom: 5px !important;
+            white-space: normal !important; /* Deja que el título ocupe dos renglones si hace falta */
+            line-height: 1.1 !important;
+        }
+
+        .contenido-combo p {
+            font-size: 0.75rem !important; /* Descripción más chiquita */
+            line-height: 1.2 !important;
+            margin-bottom: 10px !important;
+        }
+
+    .btn-pedir-combo {
+        padding: 8px !important;
+        font-size: 0.8rem !important;
+        border-radius: 8px !important;
+        width: 100% !important;
+    }
+
+    .footer-moderno {
+        margin: 0 !important;
+        padding: 20px 10px 80px 10px !important; /* Los 80px abajo son para que la barra inferior no lo tape */
+        border-radius: 0 !important; /* Vuelve a ir de punta a punta */
+        background-color: #1b4332 !important; /* Tu verde original */
+    }
+
+    .footer-contenedor {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 8px !important; /* Muy poquito espacio entre las cosas */
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    /* Ocultamos las columnas grandes para limpiar la vista */
+    .footer-columna:first-child, .columna-links, .footer-columna h3 {
+        display: none !important;
+    }
+
+    .footer-columna h3 {
+        display: none !important;
+    }
+
+    /* Acomodamos la info de contacto */
+    .footer-links {
+        display: flex !important;
+        flex-direction: column !important; /* Uno abajo del otro */
+        align-items: center !important;
+        gap: 5px !important; /* Bien pegaditos */
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+        .footer-links li {
+            font-size: 0.75rem !important; /* Letra bien discreta */
+            color: #d8f3dc !important;
+        }
+
+    /* Redes sociales centradas y prolijas */
+    .footer-social {
+        display: flex !important;
+        gap: 15px !important;
+        margin-top: 5px !important;
+    }
+
+        .footer-social a {
+            font-size: 1.2rem !important;
+            padding: 5px !important;
+        }
+
+    .footer-creditos {
+        padding-top: 10px !important;
+        font-size: 0.65rem !important;
+    }
+
+    .mobile-nav {
+        display: flex !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        background-color: #ffffff !important;
+        height: 65px !important;
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.05) !important; /* Sombrita suave hacia arriba */
+        z-index: 9999 !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-top: 1px solid #f0f0f0 !important;
+    }
+
+    /* Estilo para cada botoncito (Inicio, Catálogo, etc.) */
+    .nav-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-decoration: none !important;
+        color: #888 !important;
+        font-size: 0.7rem !important;
+        font-weight: 600 !important;
+        gap: 4px !important;
+        flex: 1 !important; /* Reparte el ancho equitativamente */
+    }
+
+        /* Aseguramos que los Emojis/Iconos se vean bien */
+        .nav-item i {
+            font-size: 1.4rem !important;
+            font-style: normal !important;
+        }
+
+        /* Cuando el botón está activo o pasás el dedo */
+        .nav-item:active, .nav-item-admin {
+            color: #2e7d32 !important;
+        }
+
+    .btn-flotante-carrito {
+        display: none !important;
+    }
 }
+
 .nav-auth-buttons {
     display: none;
 }

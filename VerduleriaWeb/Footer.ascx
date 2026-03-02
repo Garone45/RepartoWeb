@@ -1,4 +1,6 @@
-﻿<style>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Footer.ascx.cs" Inherits="VerduleriaWeb.Footer" %>
+<%@ Import Namespace="Dominio" %>
+<style>
     /* =========================================
        FOOTER COMPACTO - SALVADOR
        ========================================= */
@@ -118,6 +120,19 @@
             justify-content: center;
         }
     }
+    .link-admin {
+        color: #ffca28 !important; /* Un amarillo/dorado para que sepas que es especial */
+        font-weight: bold;
+        border: 1px dashed #ffca28;
+        padding: 2px 8px;
+        border-radius: 4px;
+        margin-top: 5px;
+        display: inline-block;
+    }
+    .link-admin:hover {
+        background-color: #ffca28;
+        color: #1b4332 !important;
+    }
 </style>
 
 <footer class="footer-moderno">
@@ -141,6 +156,26 @@
             <ul class="footer-links">
                 <li>📍 Victoria, Buenos Aires</li>
                 <li>📱 WhatsApp: +54 9 11 1234-5678</li>
+                
+ 
+                <% 
+                    // Al haber importado 'Dominio' arriba, ya podemos usar 'Usuario' directamente
+                    // Usamos 'as' para una conversión segura
+                    Usuario user = Session["usuario"] as Usuario; 
+
+                    if (user != null && user.EsAdmin) 
+                    { 
+                %>
+                    <li style="margin-top: 15px;">
+                        <a href="AdminProductos.aspx" class="link-admin">⚙️ GESTIONAR PRODUCTOS</a>
+                    </li>
+                    <li>
+                        <a href="AdminPedidos.aspx" class="link-admin">📋 VER PEDIDOS</a>
+                    </li>
+                <% } %>
+
+                     
+
             </ul>
             <div class="footer-social">
                 <a href="#" title="Instagram">📷</a>
