@@ -14,20 +14,27 @@ namespace VerduleriaWeb
         {
 
         }
-        public static bool GuardarPedido(string nombre, string direccion, string telefono, decimal total)
+        [System.Web.Services.WebMethod] // <-- ESTO ES CLAVE PARA QUE FUNCIONE PageMethods
+        public static bool GuardarPedido(string nombre, string zona, string direccion, string telefono, string fechaEntrega, decimal total)
         {
-            // Lógica para guardar en la base de datos de Salvador
             try
             {
+                // Juntamos la zona con la dirección para que en la base de datos quede prolijo
+                string direccionCompleta = zona + " - " + direccion;
+                string comentarioFecha = "Entregar el día: " + fechaEntrega;
+
+                // Asegurate de poner tu cadena de conexión real acá
                 using (SqlConnection conexion = new SqlConnection("tu_cadena_conexion"))
                 {
-                    string query = "INSERT INTO Pedidos (NombreCliente, Direccion, Telefono, Total, Fecha) " +
-                                   "VALUES (@nombre, @direccion, @telefono, @total, GETDATE())";
+                    // Guardamos la direccionCompleta en Direccion y la fechaEntrega en Comentarios
+                    string query = "INSERT INTO Pedidos (Cliente, Direccion, Telefono, Comentarios, Total, Fecha) " +
+                                   "VALUES (@nombre, @direccion, @telefono, @comentarios, @total, GETDATE())";
 
                     SqlCommand cmd = new SqlCommand(query, conexion);
                     cmd.Parameters.AddWithValue("@nombre", nombre);
-                    cmd.Parameters.AddWithValue("@direccion", direccion);
+                    cmd.Parameters.AddWithValue("@direccion", direccionCompleta);
                     cmd.Parameters.AddWithValue("@telefono", telefono);
+                    cmd.Parameters.AddWithValue("@comentarios", comentarioFecha);
                     cmd.Parameters.AddWithValue("@total", total);
 
                     conexion.Open();

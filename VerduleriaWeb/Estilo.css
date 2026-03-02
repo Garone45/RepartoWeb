@@ -438,6 +438,10 @@ body {
         padding: 0 !important;
         text-shadow: none !important;
     }
+    .item-carrito button:active {
+        transform: scale(1.2); /* Se agranda un poquito cuando lo tocas */
+        transition: 0.1s;
+    }
 
     .navbar-links {
         display: none !important;
