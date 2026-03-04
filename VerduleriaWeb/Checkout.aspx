@@ -88,7 +88,39 @@
 
         </div>
 
+
         <uc:MiFooter runat="server" />
+   <nav class="mobile-nav">
+            <a href="Inicio.aspx" class="nav-item">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Inicio</span>
+            </a>
+            
+            <a href="Catalogo.aspx" class="nav-item">
+                <span class="nav-icon">🍎</span>
+                <span class="nav-label">Tienda</span>
+            </a>
+            
+            <% if (Session["usuario"] != null) { %>
+                <a href="MisPedidos.aspx" class="nav-item">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Pedidos</span>
+                </a>
+            <% } else { %>
+                <a href="Login.aspx" class="nav-item">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Ingresar</span>
+                </a>
+            <% } %>
+
+            <a href="Checkout.aspx" class="nav-item" style="color: #2e7d32;">
+                <div class="cart-wrapper" style="position: relative;">
+                    <span class="nav-icon">🛒</span>
+                    <span class="cart-badge" id="badgeMobile" style="position: absolute; top: -5px; right: -10px; background: #e63946; color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.65rem; font-weight: bold;">0</span>
+                </div>
+                <span class="nav-label">Carrito</span>
+            </a>
+        </nav>
     </form>
 
   <script>
@@ -103,6 +135,9 @@
           let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
           let contenedorLista = document.getElementById('listaCheckout');
           let totalPedido = 0;
+
+          if (document.getElementById('badgeMobile')) {
+              document.getElementById('badgeMobile').innerText = carrito.length;
 
           if (carrito.length === 0) {
               contenedorLista.innerHTML = "<p style='color:red; font-weight:bold; text-align:center;'>Tu carrito está vacío. 🛒</p>";

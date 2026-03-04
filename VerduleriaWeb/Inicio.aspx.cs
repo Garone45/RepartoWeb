@@ -24,5 +24,12 @@ namespace VerduleriaWeb
                 repCombos.DataBind();
             }
         }
+        protected void btnSalir_Click(object sender, EventArgs e)
+        {
+            // Borramos la sesión del usuario
+            Session.Remove("usuario");
+            // Lo mandamos de vuelta a la página de inicio como invitado
+            Response.Redirect("Inicio.aspx");
+        }
     }
 }

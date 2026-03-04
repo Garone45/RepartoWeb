@@ -18,6 +18,17 @@ namespace VerduleriaWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuario"] != null)
+            {
+                // Si está logueado, le mostramos la puerta de Salir
+                btnSalirMobile.Visible = true;
+            }
+            else
+            {
+                // Si no está logueado, la puerta no existe
+                btnSalirMobile.Visible = false;
+            }
+
             if (!IsPostBack)
             {
                 try
@@ -32,6 +43,7 @@ namespace VerduleriaWeb
                     Session.Add("Error", ex.ToString());
                 }
             }
+           
         }
 
         protected void btnSalir_Click(object sender, EventArgs e)
@@ -112,6 +124,18 @@ namespace VerduleriaWeb
                 // Si algo falla, lo mostramos para debuguear
                 Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
             }
+            if (Session["usuario"] != null)
+            {
+                // Si hay alguien logueado, mostramos Salir y ocultamos Ingresar
+                btnSalirMobile.Visible = true;
+               
+            }
+            else
+            {
+                // Si es un invitado, mostramos Ingresar y ocultamos Salir
+                btnSalirMobile.Visible = false;
+               
+            }
         }
 
         // CLASE DE APOYO (IMPORTANTE: El precio debe ser decimal)
@@ -120,5 +144,7 @@ namespace VerduleriaWeb
             public string nombre { get; set; }
             public decimal precio { get; set; } // Cambiado de int a decimal
         }
+
     }
+
 }

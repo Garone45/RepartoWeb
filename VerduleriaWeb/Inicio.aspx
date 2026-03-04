@@ -8,24 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
     <title>Inicio - Verdulería Salvador</title>
-    <link href="<%= ResolveUrl("~/Estilo.css?v=2") %>" rel="stylesheet" type="text/css" />
+    <link href="<%= ResolveUrl("~/Estilo.css?v=3") %>" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
     <form id="form1" runat="server">
         
-       <nav class="navbar-moderna">
+    <nav class="navbar-moderna">
     <a href="Inicio.aspx" class="navbar-brand">Salvador 🥦</a>
     
     <div class="navbar-links">
-        <a href="Login.aspx" class="nav-btn">Ingresar</a>
-    </div>
-
-    <div class="nav-auth-buttons">
-        <% if (Session["usuario"] == null) { %>
-            <a href="Login.aspx" class="btn-nav-mobile">Ingresar</a>
+        <% if (Session["usuario"] != null) { %>
+            <span style="color:white; margin-right: 10px; font-size: 0.9rem;">Hola, <b><%: ((Dominio.Usuario)Session["usuario"]).Nombre.Split(' ')[0] %></b></span>
+            
+            <a href="MisPedidos.aspx" class="nav-btn" style="padding: 6px 12px; font-size: 0.8rem;">Mis Pedidos</a>
+            
+            <asp:LinkButton ID="btnSalir" runat="server" CssClass="nav-btn ocultar-en-celu" Style="border-color: #ff8a80; color: #ff8a80; margin-left: 5px;" OnClick="btnSalir_Click">Salir</asp:LinkButton>
         <% } else { %>
-            <a href="MiPerfil.aspx" class="btn-nav-mobile">Mi Cuenta</a>
+            <a href="Login.aspx" class="nav-btn">Ingresar</a>
         <% } %>
     </div>
 </nav>
@@ -105,27 +105,34 @@
 
             </div>
         </div>
-        <nav class="mobile-nav">
-            <a href="Inicio.aspx" class="nav-item">
-                <span class="nav-icon">🏠</span>
-                <span class="nav-label">Inicio</span>
-            </a>
-            <a href="Catalogo.aspx" class="nav-item">
-                <span class="nav-icon">🍎</span>
-                <span class="nav-label">Productos</span>
-            </a>
-            <a href="Login.aspx" class="nav-item">
-                <span class="nav-icon">👤</span>
-                <span class="nav-label">Perfil</span>
-            </a>
-            <a href="Checkout.aspx" class="nav-item">
-                <div class="cart-wrapper">
-                    <span class="nav-icon">🛒</span>
-                    <span class="cart-badge" id="badgeMobile">0</span>
-                </div>
-                <span class="nav-label">Carrito</span>
-            </a>
-        </nav>
+   <nav class="mobile-nav">
+    <a href="Inicio.aspx" class="nav-item" style="color: #2e7d32;">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Inicio</span>
+    </a>
+    
+    <a href="Catalogo.aspx" class="nav-item">
+        <span class="nav-icon">🍎</span>
+        <span class="nav-label">Tienda</span>
+    </a>
+    
+    <a href="Checkout.aspx" class="nav-item">
+        <div class="cart-wrapper" style="position: relative;">
+            <span class="nav-icon">🛒</span>
+            <span class="cart-badge" id="badgeMobile" style="position: absolute; top: -5px; right: -10px; background: #e63946; color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.65rem; font-weight: bold;">0</span>
+        </div>
+        <span class="nav-label">Carrito</span>
+    </a>
+    <% if (Session["usuario"] != null) { %>
+        <asp:LinkButton ID="btnSalirMobile" runat="server" CssClass="nav-item" OnClick="btnSalir_Click">
+            <span class="nav-icon" style="color: #ff8a80;">🚪</span>
+            <span class="nav-label" style="color: #ff8a80;">Salir</span>
+        </asp:LinkButton>
+    <% } else { %>
+       
+    <% } %>
+
+</nav>
 
         <uc:MiFooter runat="server" />
 

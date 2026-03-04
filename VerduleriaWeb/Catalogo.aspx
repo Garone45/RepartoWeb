@@ -7,18 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"/>
     
-    <link href="Estilo.css" rel="stylesheet" />
+  <link href="Estilo.css?v=3" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
+
+
         <nav class="navbar-moderna">
             <a href="Inicio.aspx" class="navbar-brand">🥦 SALVADOR</a>
             <div class="navbar-links">
+
                 <% if (Session["usuario"] != null) { %>
-                    <span class="texto-saludo">Hola, <b><%: ((Dominio.Usuario)Session["usuario"]).Nombre %></b></span>
-                    <a href="MisPedidos.aspx" class="nav-btn">👤 Pedidos</a>
-                    <asp:LinkButton ID="btnSalirNav" runat="server" CssClass="nav-btn" 
-                        Style="border-color: #ff8a80; color: #ff8a80;" OnClick="btnSalir_Click">Salir</asp:LinkButton>
+                   
+             
                 <% } else { %>
                     <a href="Login.aspx" class="nav-btn" style="background-color: white; color: #2e7d32; border: none;">🔐 Ingresar</a>
                 <% } %>
@@ -92,9 +93,33 @@
                         CssClass="btn-whatsapp-final" 
                         OnClientClick="return prepararDatosParaServer();" 
                         OnClick="btnFinalizar_Click" />
-                </div>
             </div>
         </div>
+                </div>
+ <nav class="mobile-nav">
+    <a href="Inicio.aspx" class="nav-item" style="color: #2e7d32;">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Inicio</span>
+    </a>
+    
+    <a href="Catalogo.aspx" class="nav-item">
+        <span class="nav-icon">🍎</span>
+        <span class="nav-label">Tienda</span>
+    </a>
+    
+    <asp:LinkButton ID="btnSalirMobile" runat="server" CssClass="nav-item" OnClick="btnSalir_Click">
+        <span class="nav-icon" style="color: #ff8a80;">🚪</span>
+        <span class="nav-label" style="color: #ff8a80;">Salir</span>
+    </asp:LinkButton>
+
+    <a href="Checkout.aspx" class="nav-item">
+        <div class="cart-wrapper" style="position: relative;">
+            <span class="nav-icon">🛒</span>
+            <span class="cart-badge" id="badgeMobile" style="position: absolute; top: -5px; right: -10px; background: #e63946; color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.65rem; font-weight: bold;">0</span>
+        </div>
+        <span class="nav-label">Carrito</span>
+    </a>
+</nav>
     </form>
 
     <script>
@@ -121,6 +146,13 @@
         function actualizarBotonFlotante() {
             const btn = document.getElementById('btn-flotante');
             const badge = document.getElementById('total-carrito-badge');
+            const badgeMobile = document.getElementById('badgeMobile'); // Capturamos el numerito del navbar
+
+            // Actualizamos la cantidad de ítems en la burbuja roja
+            if (badgeMobile) {
+                badgeMobile.innerText = carrito.length;
+            }
+
             if (carrito.length > 0) {
                 btn.style.display = 'flex';
                 const total = carrito.reduce((s, p) => s + p.precio, 0);
