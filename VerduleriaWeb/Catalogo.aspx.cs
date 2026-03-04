@@ -1,6 +1,7 @@
 ﻿using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Data; // Agregamos esto para el manejo de parámetros
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -12,103 +13,112 @@ namespace VerduleriaWeb
 {
     public partial class Catalogo : System.Web.UI.Page
     {
+        // Te sugiero tener la conexión en una sola variable para todo el proyecto después
         string connectionString = "Data Source=sql8006.site4now.net;Initial Catalog=db_ac4207_reparto;User Id=db_ac4207_reparto_admin;Password=yoeracampeon23";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                
-                ProductoNegocio negocio = new ProductoNegocio();              
-                repProductos.DataSource = negocio.Listar();
-                repProductos.DataBind();
+                try
+                {
+                    ProductoNegocio negocio = new ProductoNegocio();
+                    repProductos.DataSource = negocio.Listar();
+                    repProductos.DataBind();
+                }
+                catch (Exception ex)
+                {
+                    // Por si falla la base al cargar
+                    Session.Add("Error", ex.ToString());
+                }
             }
         }
+
         protected void btnSalir_Click(object sender, EventArgs e)
         {
-            // 1. Borramos al usuario de la memoria
             Session.Remove("usuario");
-
-            // 2. Lo mandamos al Login (o recargamos el catálogo como invitado)
             Response.Redirect("Login.aspx");
         }
+
         protected void btnFinalizar_Click(object sender, EventArgs e)
         {
-            // 1. RECUPERAMOS LOS DATOS DE LOS HIDDEN FIELDS
-            string jsonCarrito = hfCarritoJson.Value;
-            string nombre = hfNombre.Value;
-            string direccion = hfDireccion.Value;
-            string aclaraciones = hfAclaraciones.Value;
-
-            // 2. CONVERTIMOS EL JSON A LISTA C#
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            List<ItemCarrito> listaProductos = serializer.Deserialize<List<ItemCarrito>>(jsonCarrito);
-
-            int idPedidoGenerado = 0;
-            decimal totalPedido = 0;
-
-            // Calculamos total
-            foreach (var item in listaProductos) totalPedido += item.precio;
-
-            // --- NUEVO: RECUPERAMOS AL USUARIO DE LA SESIÓN ---
-            // Esto sirve para saber si es un usuario registrado o un invitado
-            Dominio.Usuario usuarioLogueado = (Dominio.Usuario)Session["usuario"];
-            object idUsuarioParaGuardar = DBNull.Value; // Por defecto asumimos que es NULL (Invitado)
-
-            if (usuarioLogueado != null)
+            try
             {
-                idUsuarioParaGuardar = usuarioLogueado.Id; // Si está logueado, usamos su ID real
-            }
-            // --------------------------------------------------
+                // 1. RECUPERAMOS LOS DATOS
+                string jsonCarrito = hfCarritoJson.Value;
+                string nombre = hfNombre.Value;
+                string direccion = hfDireccion.Value;
+                string aclaraciones = hfAclaraciones.Value;
 
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
+                if (string.IsNullOrEmpty(jsonCarrito) || jsonCarrito == "[]") return;
 
-                // 3. GUARDAMOS LA CABECERA DEL PEDIDO (Ahora con IdUsuario)
-                string queryPedido = @"INSERT INTO Pedidos (Fecha, Cliente, Direccion, Comentarios, Total, IdUsuario) 
-                               VALUES (GETDATE(), @Cli, @Dir, @Com, @Tot, @IdUsu);
-                               SELECT SCOPE_IDENTITY();";
+                // 2. CONVERTIMOS EL JSON (Usamos decimal para el precio, clave!)
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                List<ItemCarrito> listaProductos = serializer.Deserialize<List<ItemCarrito>>(jsonCarrito);
 
-                SqlCommand cmd = new SqlCommand(queryPedido, con);
-                cmd.Parameters.AddWithValue("@Cli", nombre);
-                cmd.Parameters.AddWithValue("@Dir", direccion);
-                cmd.Parameters.AddWithValue("@Com", aclaraciones);
-                cmd.Parameters.AddWithValue("@Tot", totalPedido);
+                decimal totalPedido = 0;
+                foreach (var item in listaProductos) totalPedido += item.precio;
 
-                // Pasamos el ID del usuario (o NULL si no está logueado)
-                cmd.Parameters.AddWithValue("@IdUsu", idUsuarioParaGuardar);
+                // 3. DATOS DEL USUARIO
+                Dominio.Usuario usuarioLogueado = (Dominio.Usuario)Session["usuario"];
 
-                // Ejecutamos y guardamos el ID nuevo
-                idPedidoGenerado = Convert.ToInt32(cmd.ExecuteScalar());
-
-                // 4. GUARDAMOS CADA PRODUCTO EN "DetallesPedido"
-                foreach (var item in listaProductos)
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string queryDetalle = @"INSERT INTO DetallesPedido (IdPedido, NombreProducto, PrecioUnitario, Cantidad) 
-                                    VALUES (@IdPed, @Nom, @Prec, 1)";
+                    con.Open();
 
-                    SqlCommand cmdDet = new SqlCommand(queryDetalle, con);
-                    cmdDet.Parameters.AddWithValue("@IdPed", idPedidoGenerado);
-                    cmdDet.Parameters.AddWithValue("@Nom", item.nombre);
-                    cmdDet.Parameters.AddWithValue("@Prec", item.precio);
-                    cmdDet.ExecuteNonQuery();
+                    // CABECERA DEL PEDIDO
+                    string queryPedido = @"INSERT INTO Pedidos (Fecha, Cliente, Direccion, Comentarios, Total, IdUsuario) 
+                                         VALUES (GETDATE(), @Cli, @Dir, @Com, @Tot, @IdUsu);
+                                         SELECT SCOPE_IDENTITY();";
+
+                    SqlCommand cmd = new SqlCommand(queryPedido, con);
+                    cmd.Parameters.AddWithValue("@Cli", nombre);
+                    cmd.Parameters.AddWithValue("@Dir", direccion);
+                    cmd.Parameters.AddWithValue("@Com", aclaraciones);
+                    cmd.Parameters.AddWithValue("@Tot", totalPedido);
+
+                    // Manejo de NULL para el ID de Usuario
+                    if (usuarioLogueado != null)
+                        cmd.Parameters.AddWithValue("@IdUsu", usuarioLogueado.Id);
+                    else
+                        cmd.Parameters.AddWithValue("@IdUsu", DBNull.Value);
+
+                    int idPedidoGenerado = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    // DETALLES DEL PEDIDO
+                    foreach (var item in listaProductos)
+                    {
+                        string queryDetalle = @"INSERT INTO DetallesPedido (IdPedido, NombreProducto, PrecioUnitario, Cantidad) 
+                                              VALUES (@IdPed, @Nom, @Prec, 1)";
+
+                        SqlCommand cmdDet = new SqlCommand(queryDetalle, con);
+                        cmdDet.Parameters.AddWithValue("@IdPed", idPedidoGenerado);
+                        cmdDet.Parameters.AddWithValue("@Nom", item.nombre);
+                        cmdDet.Parameters.AddWithValue("@Prec", item.precio);
+                        cmdDet.ExecuteNonQuery();
+                    }
+
+                    // --- MERCADO PAGO ---
+                    MercadoPagoService mp = new MercadoPagoService();
+                    string linkPago = mp.CrearPreferencia(nombre, totalPedido, idPedidoGenerado);
+
+                    // REDIRECCIÓN FINAL
+                    Response.Redirect(linkPago, false);
+                    Context.ApplicationInstance.CompleteRequest();
                 }
-
-                // --- MERCADO PAGO ---
-                MercadoPagoService mp = new MercadoPagoService();
-                string linkPago = mp.CrearPreferencia(nombre, totalPedido, idPedidoGenerado);
-
-                // Redireccionamos SOLO a Mercado Pago
-                // (El código se detiene acá, por eso lo de WhatsApp de abajo no se ejecutaría nunca)
-                Response.Redirect(linkPago, false);
-                Context.ApplicationInstance.CompleteRequest();
+            }
+            catch (Exception ex)
+            {
+                // Si algo falla, lo mostramos para debuguear
+                Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
             }
         }
 
+        // CLASE DE APOYO (IMPORTANTE: El precio debe ser decimal)
         public class ItemCarrito
         {
             public string nombre { get; set; }
-            public int precio { get; set; }
+            public decimal precio { get; set; } // Cambiado de int a decimal
         }
     }
 }

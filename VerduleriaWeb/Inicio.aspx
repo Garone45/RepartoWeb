@@ -18,7 +18,7 @@
     <a href="Inicio.aspx" class="navbar-brand">Salvador 🥦</a>
     
     <div class="navbar-links">
-        <a href="Catalogo.aspx" class="nav-btn">Comprar</a>
+        <a href="Login.aspx" class="nav-btn">Ingresar</a>
     </div>
 
     <div class="nav-auth-buttons">
@@ -46,7 +46,7 @@
 
             <h1 class="hero-titulo" id="textoTitulo">PEDÍ TU COMBO SEMANAL</h1>
             <p class="hero-subtitulo" id="textoSubtitulo">Directo de la huerta a tu mesa, sin escalas.</p>
-            <a href="#productos" class="btn-naranja">Ver Productos</a>
+            <a href="Catalogo.aspx" class="btn-naranja">Ver Productos</a>
         </div>
 
         <div class="seccion-pasos">
