@@ -13,7 +13,7 @@ namespace VerduleriaWeb
 {
     public partial class Catalogo : System.Web.UI.Page
     {
-        // Te sugiero tener la conexión en una sola variable para todo el proyecto después
+        
         string connectionString = "Data Source=sql8006.site4now.net;Initial Catalog=db_ac4207_reparto;User Id=db_ac4207_reparto_admin;Password=yoeracampeon23";
 
         protected void Page_Load(object sender, EventArgs e)
@@ -64,14 +64,13 @@ namespace VerduleriaWeb
 
                 if (string.IsNullOrEmpty(jsonCarrito) || jsonCarrito == "[]") return;
 
-                // 2. CONVERTIMOS EL JSON (Usamos decimal para el precio, clave!)
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 List<ItemCarrito> listaProductos = serializer.Deserialize<List<ItemCarrito>>(jsonCarrito);
 
                 decimal totalPedido = 0;
                 foreach (var item in listaProductos) totalPedido += item.precio;
 
-                // 3. DATOS DEL USUARIO
+               
                 Dominio.Usuario usuarioLogueado = (Dominio.Usuario)Session["usuario"];
 
                 using (SqlConnection con = new SqlConnection(connectionString))
